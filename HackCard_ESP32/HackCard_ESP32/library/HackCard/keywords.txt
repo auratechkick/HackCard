@@ -1,0 +1,22 @@
+#######################################
+# Syntax Coloring Map for HackCard
+#######################################
+
+HackCard	KEYWORD1
+HalRgbRing	KEYWORD1
+HalWifiLed	KEYWORD1
+HalBuzzer	KEYWORD1
+HalButtons	KEYWORD1
+HalNfc	KEYWORD1
+HalBle	KEYWORD1
+RgbRing	KEYWORD2
+WifiLed	KEYWORD2
+Buzzer	KEYWORD2
+Buttons	KEYWORD2
+Nfc	KEYWORD2
+Ble	KEYWORD2
+
+PIN_RGB_RING	LITERAL1
+PIN_BUZZER	LITERAL1
+PIN_NFC_SDA	LITERAL1
+PIN_SD_CS	LITERAL1

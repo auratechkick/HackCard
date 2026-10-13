@@ -1,0 +1,10 @@
+REM HackCard lab demo — macOS
+OS mac
+DELAY 2000
+GUI SPACE
+DELAY 500
+STRING TextEdit
+ENTER
+DELAY 1200
+STRING Hello from HackCard on macOS!
+ENTER

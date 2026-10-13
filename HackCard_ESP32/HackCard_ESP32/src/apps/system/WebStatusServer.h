@@ -1,0 +1,133 @@
+#pragma once
+
+#include "../../core/AppContext.h"
+
+class WebStatusServer {
+public:
+  bool begin(AppContext* ctx);
+  void loop();
+
+private:
+  String buildPortalPage() const;
+  String buildTrainingRevealPage() const;
+  String buildStatusJson() const;
+  void handleCliApi();
+  void handleCliBanner();
+  void handleSerialLogApi();
+  void handleSetupApi();
+  void handleProfileApi();
+  void handleSettingsApi();
+  void handleAppsApi();
+  void handleLogsApi();
+  void handleLogsClearApi();
+  void handleModeApi();
+  void handleModesGetApi();
+  void handleLabUnlockApi();
+  void handleRootRoute();
+  void handleBusinessProfile();
+  void handleLabConsoleUi();
+  void handleProfilePublicApi();
+  bool hasLabSession() const;
+  bool hasLabAccess() const;
+  String getCookieValue(const char* name) const;
+  bool validateLabSessionToken(const String& token) const;
+  void grantLabSession();
+  void persistLabSessionCookie();
+  /** Sends JSON error and returns true if SD is not ready (export blocked). */
+  bool respondSdExportUnavailable();
+
+  String _labSessionToken;
+  uint32_t _labSessionExpiryMs = 0;
+  void handleNfcStatusApi();
+  void handleNfcReadApi();
+  void handleNfcInfoApi();
+  void handleNfcDumpApi();
+  void handleNfcWriteApi();
+  void handleNfcEraseApi();
+  void handleNfcHistoryApi();
+  void handleNfcLastDumpApi();
+  void handleNfcCloneApi();
+  void handleNfcKillApi();
+  void handleNfcClassicDumpApi();
+  void handleNfcClassicCloneApi();
+  void handleNfcKeysScanApi();
+  void handleNfcStoragePrefsApi();
+  void handleNfcHistoryExportSdApi();
+  void handleNfcDumpExportSdApi();
+  void handleNfcClassicExportSdApi();
+  void handleWifiScanApi();
+  void handleWifiScanClearApi();
+  void handleWifiLastApi();
+  void handleWifiApGetApi();
+  void handleWifiApPostApi();
+  void handleWifiBeaconStatusApi();
+  void handleWifiBeaconStartApi();
+  void handleWifiBeaconStopApi();
+  void handleWifiTwinStatusApi();
+  void handleWifiTwinStartApi();
+  void handleWifiTwinStopApi();
+  void handleWifiTrainingStatusApi();
+  void handleWifiTrainingConfigApi();
+  void handleWifiTrainingStartApi();
+  void handleWifiTrainingStopApi();
+  void handleWifiTrainingSubmitApi();
+  void handleWifiTrainingCapturesApi();
+  void handleWifiTrainingCapturesClearApi();
+  void handleWifiMonitorStatusApi();
+  void handleWifiMonitorProbesApi();
+  void handleWifiMonitorSniffStartApi();
+  void handleWifiMonitorSniffStopApi();
+  void handleWifiMonitorDeauthStartApi();
+  void handleWifiMonitorDeauthStopApi();
+  void handleWifiMonitorProbesClearApi();
+  void handleWifiMonitorProbesExportSdApi();
+  void handleWifiMonitorApsApi();
+  void handleWifiMonitorLiveApi();
+  void handleWifiStaGetApi();
+  void handleWifiReconStatusApi();
+  void handleWifiReconConnectApi();
+  void handleWifiReconReleaseApi();
+  void handleWifiReconSubnetApi();
+  void handleWifiReconHostsApi();
+  void handleWifiReconPortScanApi();
+  void handleWifiReconPortsApi();
+  void handleWifiKarmaStatusApi();
+  void handleWifiKarmaStartApi();
+  void handleWifiKarmaStopApi();
+  void handleWifiCaptureStatusApi();
+  void handleWifiCaptureStartApi();
+  void handleWifiCaptureStopApi();
+  void handleWifiCaptureDownloadApi();
+  void handleWifiCaptureVerifyApi();
+  void handleWifiCaptureExportSdApi();
+  void handleWifiTrainingExportApi();
+  void handleWifiTrainingExportSdApi();
+  void handleBleStatusApi();
+  void handleBleScanApi();
+  void handleBleLastScanApi();
+  void handleBleAdvertiseStartApi();
+  void handleBleAdvertiseStopApi();
+  void handleBleContactStartApi();
+  void handleBleContactStopApi();
+  void handleBleContactRefreshApi();
+  void handleHidDeviceApi();
+  void handleHidStatusApi();
+  void handleHidOsApi();
+  void handleHidRunApi();
+  void handleHidPayloadsApi();
+  void handleHidPayloadReadApi();
+  void handleHidPayloadSaveApi();
+  void handleHidPayloadSaveSdApi();
+  void handleHidPayloadDeleteApi();
+  void handleHidRunScriptApi();
+  void handleHidArmApi();
+  void handleCaptiveRedirect();
+  void handleCaptiveDetect();
+  void handleNotFound();
+  void handleDiagApi();
+
+  AppContext* _ctx = nullptr;
+  bool _running = false;
+};
+
+extern WebStatusServer WebStatus;

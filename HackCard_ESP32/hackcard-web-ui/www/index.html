@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>HackCard Lab Console</title>
+  <link rel="stylesheet" href="assets/css/dashboard.css">
+</head>
+<body>
+<!-- Mobile: sticky header with Lab PIN -->
+<header class="mobile-topbar">
+  <div class="mobile-topbar-brand">
+    <span class="status-dot off" id="conn-dot-mobile"></span>
+    <strong>Hack<span>Card</span></strong>
+    <span class="mobile-page-title" id="mobile-page-title">Home</span>
+  </div>
+  <div class="mobile-pin-wrap">
+    <label for="labPinMobile">PIN</label>
+    <input type="password" id="labPinMobile" value="1234" autocomplete="off" inputmode="numeric">
+  </div>
+</header>
+
+<div class="app">
+  <aside class="sidebar desktop-only">
+    <div class="brand">
+      <h1>Hack<span>Card</span></h1>
+      <p>Lab Console</p>
+    </div>
+    <nav class="nav">
+      <div class="nav-section">Overview</div>
+      <button class="nav-link active" data-page="dashboard"><span class="icon">◉</span> Dashboard</button>
+      <div class="nav-section">Wireless Lab</div>
+      <button class="nav-link" data-page="wifi"><span class="icon">📡</span> Wi-Fi Lab</button>
+      <button class="nav-link" data-page="training"><span class="icon">🎓</span> Training Portal</button>
+      <button class="nav-link" data-page="monitor"><span class="icon">👁</span> Monitor &amp; Sniff</button>
+      <div class="nav-section">Hardware</div>
+      <button class="nav-link" data-page="nfc"><span class="icon">⬡</span> NFC Reader</button>
+      <button class="nav-link" data-page="peripherals"><span class="icon">💡</span> RGB &amp; Buzzer</button>
+      <button class="nav-link" data-page="hid"><span class="icon">⌨</span> USB HID</button>
+      <button class="nav-link" data-page="ble"><span class="icon">🔵</span> Bluetooth LE</button>
+      <div class="nav-section">System</div>
+      <button class="nav-link" data-page="terminal"><span class="icon">&gt;_</span> Terminal</button>
+      <button class="nav-link" data-page="settings"><span class="icon">⚙</span> Settings</button>
+    </nav>
+    <div class="sidebar-foot">
+      <div class="sidebar-conn" aria-live="polite">
+        <span class="status-dot status-dot-sidebar off" id="conn-dot"></span>
+        <span class="sidebar-conn-label" id="sidebar-status">Offline</span>
+      </div>
+      <label>Lab PIN</label>
+      <input type="password" id="labPin" value="1234" autocomplete="off" inputmode="numeric">
+      <p class="hint" style="margin-top:6px">Used for lab actions (Wi‑Fi, NFC, HID, training).</p>
+    </div>
+  </aside>
+
+  <div class="workspace">
+  <main class="main">
+
+    <!-- DASHBOARD -->
+    <section class="page active" id="page-dashboard">
+      <div class="page-header">
+        <h2>Status Overview</h2>
+        <p>Live device status from <code>/api/status</code></p>
+      </div>
+      <div class="warn-box"><strong>Authorized lab use only.</strong> Wi-Fi offensive tools require explicit permission. Training captures are stored locally on the device for debrief only.</div>
+      <div class="warn-box" id="setup-banner" hidden>
+        <strong>First-time setup.</strong> Configure owner name, AP, and lab PIN in Settings.
+        <button type="button" class="btn btn-primary" id="setup-banner-go" style="margin-left:12px">Open Settings</button>
+      </div>
+      <div class="grid grid-4" style="margin-bottom:20px">
+        <div class="card stat-card"><div class="value" id="stat-fw">—</div><div class="label">Firmware</div></div>
+        <div class="card stat-card"><div class="value" id="stat-storage">—</div><div class="label">Storage</div><p class="hint stat-card-hint" id="stat-storage-hint">—</p></div>
+        <div class="card stat-card"><div class="value" id="stat-ap">—</div><div class="label">AP SSID</div></div>
+        <div class="card stat-card"><div class="value" id="stat-ap-ip">—</div><div class="label">Hotspot IP</div></div>
+        <div class="card stat-card"><div class="value" id="stat-sta-ip">—</div><div class="label">Router IP</div></div>
+        <div class="card stat-card"><div class="value" id="stat-clients">—</div><div class="label">Clients</div></div>
+      </div>
+      <div class="grid grid-2">
+        <div class="card">
+          <h3>Quick Actions</h3>
+          <div class="btn-row">
+            <button class="btn btn-primary nav-link" data-page="wifi">Wi-Fi Scan</button>
+            <button class="btn btn-blue nav-link" data-page="nfc">Read NFC</button>
+            <button class="btn btn-ghost nav-link" data-page="terminal">Open CLI</button>
+            <a class="btn btn-ghost" href="/portal" target="_blank">Preview Portal</a>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Session Info</h3>
+          <p>Mode: <span class="badge badge-blue" id="stat-mode">—</span></p>
+          <p>Uptime: <span id="stat-uptime">—</span></p>
+          <p class="hint">Profile vCard: <a href="/profile.vcf">/profile.vcf</a></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- WI-FI LAB -->
+    <section class="page" id="page-wifi">
+      <div class="page-header"><h2>Wi-Fi Lab</h2><p>Scan nearby networks, evil twin, beacon spam — 2.4 GHz only</p></div>
+      <div class="card wifi-ip-banner" id="wifi-network-status">
+        <h3>Dashboard address</h3>
+        <p class="wifi-ip-line"><span class="wifi-ip-label">HackCard hotspot</span> <strong id="wifi-ap-endpoint">—</strong></p>
+        <p class="hint">Join that Wi‑Fi and bookmark the link. If the sidebar shows <strong>Offline</strong>, reconnect to the HackCard network.</p>
+      </div>
+      <div class="grid grid-2">
+        <div class="card wifi-scan-card">
+          <h3>Network Scan</h3>
+          <p class="hint wifi-scan-help"><strong>Scan networks</strong> — starts a ~10&nbsp;s scan on the device. <strong>Refresh list</strong> — reloads saved results. <strong>Clear results</strong> — empties the list.</p>
+          <div class="btn-row">
+            <button class="btn btn-primary" id="btn-wifi-scan">Scan Networks</button>
+            <button class="btn btn-ghost btn-sm" id="btn-wifi-scan-refresh" title="Reload last saved scan from device">Refresh list</button>
+            <button class="btn btn-ghost btn-sm" id="btn-wifi-scan-clear" title="Remove saved networks from list">Clear results</button>
+          </div>
+          <div class="msg" id="wifi-scan-msg"></div>
+          <div class="responsive-list" style="margin-top:12px">
+            <table class="table table-wifi-scan desktop-only"><thead><tr><th>SSID</th><th>RSSI</th><th>Ch</th></tr></thead>
+            <tbody id="wifi-scan-list"><tr><td colspan="3">Run scan to populate</td></tr></tbody></table>
+            <div class="mobile-cards" id="wifi-scan-cards" aria-live="polite"></div>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Evil Twin Simulation</h3>
+          <div class="warn-box" id="twin-ap-warn">
+            <strong>One Wi‑Fi name at a time.</strong> Starting twin <em>replaces</em> your HackCard SSID with the target name (ESP32 has a single lab AP). Your laptop will drop off HackCard — that is expected.
+            <ul class="nfc-info-list" style="margin:8px 0 0">
+              <li>Reconnect to the <strong>target SSID</strong> (usually open), then open <strong>http://192.168.4.1/</strong> to control the lab.</li>
+              <li>Or wait for the timer — HackCard SSID returns automatically (max 15 min).</li>
+              <li>Or use USB serial: <code>wifi twin stop</code></li>
+            </ul>
+          </div>
+          <p class="hint" id="twin-status">Idle</p>
+          <p class="hint" id="twin-reconnect-hint" hidden></p>
+          <label>Target SSID</label><input id="twin-ssid" placeholder="CoffeeShop_Free">
+          <label>Duration (minutes)</label><input type="number" id="twin-minutes" value="5" min="1" max="15">
+          <label>Channel (optional)</label><input type="number" id="twin-channel" min="1" max="13" placeholder="auto">
+          <div class="check-row"><input type="checkbox" id="twin-with-portal" checked><label for="twin-with-portal">Auto-start training portal</label></div>
+          <label>Portal template</label>
+          <select id="twin-template">
+            <option value="auto">Auto (SSID match)</option>
+            <option value="0">Wi-Fi Login</option><option value="1">Network Auth</option>
+            <option value="2">Hotel Wi-Fi</option><option value="3">Firmware Update</option>
+            <option value="4">Plugin Update</option><option value="5">OAuth Sign-In</option>
+            <option value="6">ISP Sign-In</option>
+          </select>
+          <div class="btn-row">
+            <button class="btn btn-orange" id="btn-twin-start">Start Twin</button>
+            <button class="btn btn-ghost" id="btn-twin-stop">Stop &amp; Restore AP</button>
+          </div>
+          <div class="msg" id="twin-msg"></div>
+        </div>
+        <div class="card">
+          <h3>Beacon Lab</h3>
+          <p class="hint" id="beacon-status">Idle</p>
+          <label>SSIDs (one per line, max 8)</label>
+          <textarea id="beacon-ssids" placeholder="Free_WiFi&#10;Airport_Guest&#10;Starbucks"></textarea>
+          <div class="btn-row">
+            <button class="btn btn-orange" id="btn-beacon-start">Start Beacon</button>
+            <button class="btn btn-ghost" id="btn-beacon-stop">Stop</button>
+          </div>
+          <div class="msg" id="beacon-msg"></div>
+        </div>
+        <div class="card" style="grid-column:1/-1">
+          <h3>802.11 stress demo (PIN — not a jammer)</h3>
+          <div class="warn-box">
+            <strong>Continuous Wi‑Fi jamming is not supported</strong> — it is illegal in many places and harmful to others.
+            HackCard only runs the same <em>capped</em> Attack Lab demo (max 10 frames, ~30 s session) against a BSSID you choose on your own lab AP.
+          </div>
+          <p class="hint" id="wifi-stress-status">Idle — uses Monitor attack engine</p>
+          <label>Mode</label>
+          <select id="wifi-stress-mode">
+            <option value="0">Deauth</option><option value="1">Disassoc</option><option value="2">Auth flood</option>
+            <option value="3">CSA (channel switch)</option><option value="4">EAPOL burst</option>
+          </select>
+          <label>Target BSSID (your lab AP)</label>
+          <input id="wifi-stress-bssid" placeholder="AA:BB:CC:DD:EE:FF">
+          <label>Channel</label>
+          <input type="number" id="wifi-stress-ch" min="1" max="13" value="6">
+          <div class="btn-row">
+            <button class="btn btn-red" id="btn-wifi-stress-start" type="button">Run 5-frame demo</button>
+            <button class="btn btn-ghost" id="btn-wifi-stress-stop" type="button">Stop</button>
+            <button class="btn btn-ghost btn-sm nav-link" data-page="monitor" type="button">Open Monitor &amp; Sniff</button>
+          </div>
+          <div class="msg" id="wifi-stress-msg"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TRAINING -->
+    <section class="page" id="page-training">
+      <div class="page-header"><h2>Training Portal</h2><p>Captive login scenarios for security awareness — inspired by professional Wi-Fi lab tools</p></div>
+      <div class="warn-box">Captures stay <strong>on the HackCard only</strong> (flash) for lab debrief — username and password as JSON lines. After someone submits the portal, open this page or wait for auto-refresh. Preview at <a href="/portal" target="_blank" style="color:var(--accent)">/portal</a></div>
+      <div class="grid grid-2">
+        <div class="card">
+          <h3>Scenario Template</h3>
+          <label>Template</label>
+          <select id="train-template">
+            <option value="0">Wi-Fi Login</option><option value="1">Network Authentication</option>
+            <option value="2">Hotel Wi-Fi</option><option value="3">Router Firmware Update</option>
+            <option value="4">Browser Plugin Update</option>
+            <option value="5">OAuth / Social Sign-In</option>
+            <option value="6">ISP Sign-In</option>
+          </select>
+          <label>Network name (shown on page)</label><input id="train-network" value="Guest_WiFi">
+          <label>Headline</label><input id="train-headline" value="Sign in to Wi-Fi">
+          <label>Subtitle</label><input id="train-subtitle" value="Enter your details to access the internet.">
+          <div class="btn-row">
+            <button class="btn btn-primary" id="btn-train-save">Save Template</button>
+            <button class="btn btn-orange" id="btn-train-start">Start Portal</button>
+            <button class="btn btn-ghost" id="btn-train-stop">Stop Portal</button>
+          </div>
+          <div class="msg" id="train-msg"></div>
+          <p class="hint" id="train-status">Idle</p>
+        </div>
+        <div class="card">
+          <h3>Capture Log</h3>
+          <pre class="log" id="train-captures">(no captures)</pre>
+          <div class="btn-row">
+            <button class="btn btn-ghost btn-sm" id="btn-train-refresh">Refresh log</button>
+            <button class="btn btn-ghost btn-sm" id="btn-train-clear">Clear Log</button>
+            <a class="btn btn-ghost btn-sm" href="/api/wifi/training/export" target="_blank">Download</a>
+            <button class="btn btn-ghost btn-sm" id="btn-train-export-sd" type="button" data-requires-sd="1" data-title-sd-ok="Copy capture log to SD card">Save to SD</button>
+          </div>
+          <p class="hint" id="train-sd-hint" hidden>Saved on SD under <code>/wifi/exports/</code></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- MONITOR -->
+    <section class="page" id="page-monitor">
+      <div class="page-header"><h2>Monitor &amp; Sniff</h2><p>Promiscuous capture with channel hopping, probe log, and lab attack modes</p></div>
+      <p id="mon-sd-hint" class="hint">Storage: —</p>
+      <div class="grid grid-2">
+        <div class="card">
+          <h3>Packet Sniffer</h3>
+          <p id="mon-sniff-status" class="hint">Idle</p>
+          <p class="hint" id="mon-packet-stats">Packets: — · Ch hop: —</p>
+          <label class="check-row"><input type="checkbox" id="sniff-save-sd" data-sd-only-option="1"> Save probe log to SD only (needs card)</label>
+          <div class="btn-row">
+            <button class="btn btn-blue" id="btn-sniff-start">Start Sniff (3 min)</button>
+            <button class="btn btn-ghost" id="btn-sniff-stop">Stop</button>
+            <button class="btn btn-ghost btn-sm" id="btn-probes-clear">Clear Probes</button>
+            <button class="btn btn-ghost btn-sm" id="btn-probes-export-sd" type="button" data-requires-sd="1" data-title-sd-ok="Export probe log to SD">Export probe log → SD</button>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Attack Lab (PIN-gated)</h3>
+          <p id="mon-deauth-status" class="hint">Idle</p>
+          <label>Mode</label>
+          <select id="deauth-mode">
+            <option value="0">Deauth</option><option value="1">Disassoc</option><option value="2">Auth flood</option>
+            <option value="3">CSA (channel switch)</option><option value="4">EAPOL burst</option>
+          </select>
+          <label>Target BSSID</label><input id="deauth-bssid" placeholder="AA:BB:CC:DD:EE:FF">
+          <label>Channel</label><input id="deauth-ch" value="6">
+          <div class="btn-row">
+            <button class="btn btn-red" id="btn-deauth-start">Send Attack (5 frames)</button>
+            <button class="btn btn-ghost" id="btn-deauth-stop">Stop</button>
+          </div>
+          <div class="msg" id="mon-msg"></div>
+        </div>
+        <div class="card">
+          <h3>Karma (probe lure)</h3>
+          <p id="karma-status" class="hint">Idle</p>
+          <details class="hint-box">
+            <summary>How to test Karma (lab only)</summary>
+            <ol class="hint-list">
+              <li>Stop sniff, capture, deauth, beacon, and evil-twin first. Keep the HackCard AP running.</li>
+              <li>Enter Lab PIN. Add SSIDs your test phone often probes (e.g. <code>Free_WiFi</code>) — one per line.</li>
+              <li>On the phone: forget that network or use a fresh device so it sends probe requests.</li>
+              <li>Start Karma and watch <strong>probes seen</strong> / <strong>responses sent</strong> above.</li>
+              <li>Optional: second device may see an open network with that name and attempt to join (authorized lab only).</li>
+            </ol>
+          </details>
+          <label>Respond with SSIDs (one per line)</label>
+          <textarea id="karma-ssids" placeholder="Free_WiFi&#10;Starbucks"></textarea>
+          <div class="btn-row">
+            <button class="btn btn-orange" id="btn-karma-start">Start Karma</button>
+            <button class="btn btn-ghost" id="btn-karma-stop">Stop</button>
+          </div>
+          <div class="msg" id="karma-msg"></div>
+        </div>
+        <div class="card">
+          <h3>Handshake / PMKID Capture</h3>
+          <p id="capture-status" class="hint">Idle</p>
+          <label>Channel</label><input type="number" id="capture-ch" min="1" max="13" placeholder="AP channel">
+          <label class="check-row"><input type="checkbox" id="capture-save-sd" data-sd-only-option="1"> Save .pcap to SD only (needs card)</label>
+          <div class="btn-row">
+            <button class="btn btn-blue" id="btn-capture-start">Capture (5 min)</button>
+            <button class="btn btn-ghost" id="btn-capture-stop">Stop</button>
+            <a class="btn btn-ghost" id="btn-capture-download" href="/api/wifi/capture/download">Download .pcap</a>
+            <button class="btn btn-ghost btn-sm" id="btn-capture-export-sd" type="button" data-requires-sd="1" data-title-sd-ok="Copy capture file to SD">Copy capture → SD</button>
+          </div>
+          <label>Test password (offline crack hint)</label>
+          <input id="capture-verify-pass" type="password" placeholder="Optional — exports to hashcat/aircrack-ng">
+          <button class="btn btn-ghost btn-sm" id="btn-capture-verify" type="button">Check capture</button>
+          <div class="msg" id="capture-msg"></div>
+        </div>
+        <div class="card">
+          <h3>Nearby APs (beacons)</h3>
+          <div class="responsive-list">
+            <table class="table desktop-only"><thead><tr><th>SSID</th><th>BSSID</th><th>RSSI</th><th>Ch</th></tr></thead>
+            <tbody id="ap-list"><tr><td colspan="4">Start sniff to discover</td></tr></tbody></table>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Live feed</h3>
+          <pre class="log" id="live-feed">—</pre>
+        </div>
+        <div class="card" style="grid-column:1/-1">
+          <h3>Probe Log</h3>
+          <div class="responsive-list">
+            <table class="table desktop-only"><thead><tr><th>SSID Probed</th><th>MAC</th><th>RSSI</th></tr></thead>
+            <tbody id="probe-list"><tr><td colspan="3">Start sniff to capture</td></tr></tbody></table>
+            <div class="mobile-cards" id="probe-cards" aria-live="polite"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- NFC -->
+    <section class="page" id="page-nfc">
+      <div class="page-header"><h2>NFC Reader</h2><p>PN532 front-end — scan and program physical tags; HackCard does not act as a scannable NFC card</p></div>
+      <div class="card nfc-hardware-info" style="margin-bottom:16px">
+        <p id="nfc-chip-status" class="status-line">Checking PN532…</p>
+        <div class="grid grid-2" style="gap:16px;margin-top:12px">
+          <div>
+            <h4 class="nfc-info-title">What HackCard NFC is</h4>
+            <ul class="nfc-info-list">
+              <li><strong>Reader / writer</strong> — talks to tags you place on the antenna</li>
+              <li><strong>Not tag emulation</strong> — phones cannot “tap HackCard” like a payment or access card</li>
+              <li><strong>External tags only</strong> — bring NTAG stickers, cards, or fobs to the PN532 pad</li>
+              <li><strong>Lab tools</strong> — erase, clone, Classic dump need operator PIN (authorized use)</li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="nfc-info-title">Tag types this reads</h4>
+            <ul class="nfc-info-list">
+              <li><strong>NTAG213 / 215 / 216</strong> — common phone-tap stickers (NDEF URLs, vCard)</li>
+              <li><strong>MIFARE Ultralight</strong> — Type 2, read / write / dump</li>
+              <li><strong>ISO14443A Type 2</strong> — UID, Tag Info, page dump, NDEF write</li>
+              <li><strong>MIFARE Classic 1K / 4K</strong> — UID + lab dump/clone (needs known keys)</li>
+            </ul>
+            <p class="hint" style="margin-top:8px">Unsupported here: ISO15693, FeliCa, EMV payment cards (secure element), most hotel key formats without keys.</p>
+          </div>
+        </div>
+        <p class="hint" id="nfc-antenna-hint">Tip: center the tag on the PN532 coil, hold still 1–2 seconds, wait for the ready chime.</p>
+        <p class="hint" id="nfc-sd-hint">Storage: —</p>
+      </div>
+      <div class="grid grid-2">
+        <div class="card">
+          <h3>Read &amp; Info</h3>
+          <div class="btn-row">
+            <button class="btn btn-primary" id="btn-nfc-read">Read UID</button>
+            <button class="btn btn-blue" id="btn-nfc-info">Tag Info</button>
+            <button class="btn btn-ghost" id="btn-nfc-dump">Dump Type 2</button>
+          </div>
+          <div class="msg" id="nfc-msg"></div>
+        </div>
+        <div class="card">
+          <h3>Write to Tag</h3>
+          <label>URL</label><input id="nfc-url" value="https://example.com">
+          <button class="btn btn-sm btn-primary" id="btn-nfc-write-url">Write URL</button>
+          <label>Plain text</label><input id="nfc-text" value="Hello from HackCard">
+          <button class="btn btn-sm btn-primary" id="btn-nfc-write-text">Write Text</button>
+          <div class="btn-row"><button class="btn btn-blue" id="btn-nfc-write-vcard">Write vCard Profile</button></div>
+        </div>
+        <div class="card" style="grid-column:1/-1">
+          <h3>History &amp; SD storage</h3>
+          <label class="check-row"><input type="checkbox" id="nfc-history-save-sd" data-sd-only-option="1"> Log history to SD only (needs card)</label>
+          <label class="check-row"><input type="checkbox" id="nfc-dumps-save-sd" data-sd-only-option="1"> Save read/dump/classic files to SD only</label>
+          <div class="btn-row">
+            <button class="btn btn-ghost btn-sm" id="btn-nfc-history">Load History</button>
+            <button class="btn btn-ghost btn-sm" id="btn-nfc-history-export-sd" type="button" data-requires-sd="1" data-title-sd-ok="Export NFC history to SD">Export history → SD</button>
+            <button class="btn btn-ghost btn-sm" id="btn-nfc-dump-export-sd" type="button" data-requires-sd="1" data-title-sd-ok="Export last Type 2 dump to SD">Export last dump → SD</button>
+            <button class="btn btn-ghost btn-sm" id="btn-nfc-classic-export-sd" type="button" data-requires-sd="1" data-title-sd-ok="Export last Classic dump to SD">Export last classic → SD</button>
+          </div>
+          <pre class="log" id="nfc-history" style="margin-top:8px">—</pre>
+        </div>
+        <div class="card" style="grid-column:1/-1">
+          <h3>Lab Tools (PIN required)</h3>
+          <div class="btn-row">
+            <button class="btn btn-red btn-sm" id="btn-nfc-erase">Erase Type 2</button>
+            <button class="btn btn-orange btn-sm" id="btn-nfc-clone">Clone from dump</button>
+            <button class="btn btn-red btn-sm" id="btn-nfc-kill">Kill tag</button>
+            <button class="btn btn-blue btn-sm" id="btn-nfc-last-dump">Last dump</button>
+          </div>
+          <div class="btn-row">
+            <button class="btn btn-ghost btn-sm" id="btn-nfc-classic-dump">Classic dump</button>
+            <button class="btn btn-ghost btn-sm" id="btn-nfc-classic-clone">Classic clone</button>
+            <button class="btn btn-ghost btn-sm" id="btn-nfc-keys-scan">Key scan</button>
+          </div>
+          <div class="msg" id="nfc-lab-msg"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PERIPHERALS -->
+    <section class="page" id="page-peripherals">
+      <div class="page-header"><h2>RGB Ring &amp; Buzzer</h2><p>12 LED patterns + 8 tunes — same as <code>/apps</code></p></div>
+      <div class="grid grid-2">
+        <div class="card">
+          <h3>RGB Patterns</h3>
+          <label>Color</label><input type="color" id="rgb-color" value="#0078ff">
+          <label>Ring brightness <span class="hint" id="rgb-brightness-val">80%</span></label>
+          <input type="range" id="rgb-brightness" min="10" max="100" value="80">
+          <p class="hint">Saved to device flash — persists after reboot.</p>
+          <div class="pattern-grid" style="margin-top:12px">
+            <button class="btn btn-ghost btn-sm" data-pattern="1">1 Solid</button>
+            <button class="btn btn-ghost btn-sm" data-pattern="2">2 Chase</button>
+            <button class="btn btn-ghost btn-sm" data-pattern="3">3 Rainbow</button>
+            <button class="btn btn-ghost btn-sm" data-pattern="4">4 Breathe</button>
+            <button class="btn btn-ghost btn-sm" data-pattern="5">5 Sparkle</button>
+            <button class="btn btn-ghost btn-sm" data-pattern="6">6 Wipe</button>
+            <button class="btn btn-ghost btn-sm" data-pattern="7">7 Alternate</button>
+            <button class="btn btn-ghost btn-sm" data-pattern="8">8 Dual</button>
+            <button class="btn btn-ghost btn-sm" data-pattern="9">9 PingPong</button>
+            <button class="btn btn-ghost btn-sm" data-pattern="10">10 Theater</button>
+            <button class="btn btn-ghost btn-sm" data-pattern="11">11 Gradient</button>
+            <button class="btn btn-ghost btn-sm" data-pattern="12">12 Strobe</button>
+          </div>
+          <div class="btn-row">
+            <button class="btn btn-ghost" id="btn-rgb-stop">Stop Pattern</button>
+            <button class="btn btn-sm btn-ghost" data-ring="success">Success</button>
+            <button class="btn btn-sm btn-ghost" data-ring="error">Error</button>
+            <button class="btn btn-sm btn-ghost" data-ring="scan">Scan</button>
+          </div>
+          <div class="msg" id="rgb-msg"></div>
+        </div>
+        <div class="card">
+          <h3>Buzzer Tunes</h3>
+          <label>Volume <span class="hint" id="buzzer-volume-val">80%</span></label>
+          <input type="range" id="buzzer-volume" min="10" max="100" step="5" value="80" list="buzzer-volume-ticks">
+          <datalist id="buzzer-volume-ticks">
+            <option value="10" label="Quiet"></option>
+            <option value="30"></option>
+            <option value="50"></option>
+            <option value="70"></option>
+            <option value="100" label="Loud"></option>
+          </datalist>
+          <p class="hint">10 = quiet · 100 = loud (linear). Saved to flash on release. 70–100 stays loud — piezo peak is capped in firmware.</p>
+          <h4 class="nfc-info-title" style="margin-top:14px">Song melodies (~12–18 s)</h4>
+          <p class="hint">Public-domain themes on the piezo — uses your volume setting. Playback blocks the web request until the song finishes.</p>
+          <div class="pattern-grid" style="margin-top:8px">
+            <button type="button" class="btn btn-sm btn-primary" data-buzzer-demo="0">Twinkle, Twinkle</button>
+            <button type="button" class="btn btn-sm btn-primary" data-buzzer-demo="1">Happy Birthday</button>
+            <button type="button" class="btn btn-sm btn-primary" data-buzzer-demo="2">Für Elise</button>
+            <button type="button" class="btn btn-sm btn-primary" data-buzzer-demo="3">Ode to Joy</button>
+            <button type="button" class="btn btn-sm btn-primary" data-buzzer-demo="4">Jingle Bells</button>
+          </div>
+          <div class="btn-row" style="margin-top:10px">
+            <button type="button" class="btn btn-red btn-sm" id="btn-buzzer-stop-song" disabled>Stop song</button>
+          </div>
+          <h4 class="nfc-info-title" style="margin-top:14px">Event chimes</h4>
+          <div class="btn-row">
+            <button class="btn btn-sm btn-ghost" data-buzzer="success">Success</button>
+            <button class="btn btn-sm btn-ghost" data-buzzer="error">Error</button>
+            <button class="btn btn-sm btn-ghost" data-buzzer="boot">Boot</button>
+            <button class="btn btn-sm btn-ghost" data-buzzer="nfc_ready">NFC Ready</button>
+          </div>
+          <div class="msg" id="buzzer-msg"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HID -->
+    <section class="page" id="page-hid">
+      <div class="page-header"><h2>USB HID Lab</h2><p>Keystrokes go to USB host PC — connect USB-C to target</p></div>
+      <div class="card" style="margin-bottom:16px"><p id="hid-status">Checking HID...</p></div>
+      <div class="grid grid-2">
+        <div class="card">
+          <h3>Target OS</h3>
+          <select id="hid-os"><option value="windows">Windows</option><option value="mac">macOS</option><option value="linux">Linux</option></select>
+          <h3 style="margin-top:16px">Apps</h3>
+          <div class="btn-row hid-quick-actions">
+            <button type="button" class="btn btn-sm btn-ghost" data-hid="notepad">Notepad</button>
+            <button type="button" class="btn btn-sm btn-ghost" data-hid="calculator">Calculator</button>
+            <button type="button" class="btn btn-sm btn-ghost" data-hid="terminal">Terminal</button>
+            <button type="button" class="btn btn-sm btn-ghost" data-hid="screenshot">Screenshot</button>
+            <button type="button" class="btn btn-sm btn-ghost" data-hid="lock_screen">Lock</button>
+          </div>
+          <label for="hid-unlock-password">Unlock screen</label>
+          <p class="hint">Types the host login password on the lock screen (lab use only).</p>
+          <div class="btn-row hid-quick-actions" style="align-items:flex-end;flex-wrap:wrap;gap:8px">
+            <input type="password" id="hid-unlock-password" autocomplete="off" placeholder="Host password" style="flex:1;min-width:160px;margin:0">
+            <button type="button" class="btn btn-sm btn-ghost" data-hid="unlock_screen" id="btn-hid-unlock">Unlock</button>
+          </div>
+          <h3 style="margin-top:16px">Media &amp; System</h3>
+          <div class="btn-row hid-quick-actions">
+            <button type="button" class="btn btn-sm btn-ghost" data-hid="volume_mute">Mute</button>
+            <button type="button" class="btn btn-sm btn-ghost" data-hid="volume_down">Vol −</button>
+            <button type="button" class="btn btn-sm btn-ghost" data-hid="volume_up">Vol +</button>
+            <button type="button" class="btn btn-sm btn-ghost" data-hid="media_play_pause">Play</button>
+            <button type="button" class="btn btn-sm btn-ghost" data-hid="media_next">Next</button>
+            <button type="button" class="btn btn-sm btn-ghost" data-hid="media_previous">Prev</button>
+          </div>
+          <div class="btn-row hid-quick-actions">
+            <button type="button" class="btn btn-sm btn-ghost" data-hid="app_switcher">App switcher</button>
+            <button type="button" class="btn btn-sm btn-ghost" data-hid="close_window">Close window</button>
+            <button type="button" class="btn btn-sm btn-ghost" data-hid="terminal_info">Terminal info</button>
+            <button type="button" class="btn btn-sm btn-ghost" data-hid="screenshot">Screenshot</button>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Custom</h3>
+          <label>Type text</label><input id="hid-text" value="Hello from HackCard">
+          <button class="btn btn-primary btn-sm" data-hid="type_text">Type Text</button>
+          <label>Open URL</label><input id="hid-url" value="https://www.google.com">
+          <button class="btn btn-blue btn-sm" data-hid="open_website">Open URL</button>
+          <h3 style="margin-top:16px">Mouse pad</h3>
+          <div class="btn-row hid-quick-actions">
+            <button type="button" class="btn btn-sm btn-ghost" data-hid="mouse_move" data-dx="-20" data-dy="0">←</button>
+            <button class="btn btn-sm btn-ghost" data-hid="mouse_move" data-dx="0" data-dy="-20">↑</button>
+            <button class="btn btn-sm btn-ghost" data-hid="mouse_move" data-dx="0" data-dy="20">↓</button>
+            <button class="btn btn-sm btn-ghost" data-hid="mouse_move" data-dx="20" data-dy="0">→</button>
+            <button class="btn btn-sm btn-ghost" data-hid="mouse_click" data-button="left">Click</button>
+            <button class="btn btn-sm btn-ghost" data-hid="mouse_click" data-button="right">Right</button>
+          </div>
+          <div class="msg" id="hid-msg"></div>
+        </div>
+        <div class="card" style="grid-column:1/-1">
+          <h3>DuckyScript Payloads</h3>
+          <p class="hint">Edit, upload, or save scripts to <code>/payloads/</code> on SD or flash. Commands: <code>OS</code>, <code>DELAY</code>, <code>STRING</code>, <code>GUI</code>, <code>ACTION</code>, <code>MOUSEMOVE</code>, …</p>
+          <details class="hint" style="margin-bottom:12px">
+            <summary style="cursor:pointer;font-weight:600">How to test DuckyScript (step-by-step)</summary>
+            <ol class="nfc-info-list" style="margin-top:8px">
+              <li>Set <strong>Lab PIN</strong> (sidebar or mobile) — same PIN as Settings → Lab PIN.</li>
+              <li>Connect HackCard <strong>USB-C data port</strong> to a Windows/macOS/Linux PC (USB host).</li>
+              <li>On the PC, open Notepad — leave it focused. Status bar should say <strong>host connected</strong>.</li>
+              <li>Click <strong>New</strong> (default script loads). <strong>Run on USB host</strong> does <em>not</em> require save — it runs the editor text directly.</li>
+              <li>Choose target <strong>OS</strong> (Windows for the default template), click <strong>Run on USB host</strong> — after ~1.5 s the PC should type “Hello from HackCard!”.</li>
+              <li>Use <strong>Save to device</strong> to keep scripts on flash; if that fails, set Arduino partition to <code>partitions.csv</code> and run <strong>Tools → ESP32 Sketch Data Upload</strong>, or use <strong>Save to SD</strong>.</li>
+            </ol>
+          </details>
+          <p class="hint" id="hid-payload-storage">Storage: —</p>
+          <p class="hint" id="hid-sd-hint" hidden>SD not detected — Save to SD needs a card in the slot (flash save still works).</p>
+          <div class="responsive-list">
+            <table class="table desktop-only"><thead><tr><th>File</th><th>Size</th><th>Source</th><th></th></tr></thead>
+            <tbody id="hid-payload-list"><tr><td colspan="4">Scanning payloads…</td></tr></tbody></table>
+          </div>
+          <label for="hid-payload-name">Filename</label>
+          <input id="hid-payload-name" placeholder="my_script.duck" autocomplete="off">
+          <label for="hid-payload-editor">Editor</label>
+          <textarea id="hid-payload-editor" class="hid-editor" rows="14" spellcheck="false" placeholder="Select a payload, upload a file, or click New…"></textarea>
+          <input type="file" id="hid-payload-upload" accept=".duck,.txt,.ds,text/plain" hidden>
+          <div class="btn-row">
+            <button class="btn btn-ghost btn-sm" id="btn-hid-new-script" type="button">New</button>
+            <button class="btn btn-ghost btn-sm" id="btn-hid-upload-trigger" type="button">Upload file</button>
+            <button class="btn btn-blue btn-sm" id="btn-hid-save-script" type="button">Save to device</button>
+            <button class="btn btn-ghost btn-sm" id="btn-hid-save-sd" type="button" data-requires-sd="1" data-title-sd-ok="Writes to /payloads/ on SD only">Save to SD</button>
+            <button class="btn btn-ghost btn-sm" id="btn-hid-delete-script" type="button">Delete</button>
+          </div>
+          <div class="btn-row" style="margin-top:12px">
+            <button class="btn btn-orange" id="btn-hid-run-script" type="button">Run on USB host</button>
+            <button class="btn btn-ghost" id="btn-hid-arm-script" type="button">Arm BOOT long-press</button>
+            <button class="btn btn-ghost btn-sm" id="btn-hid-disarm" type="button">Disarm</button>
+          </div>
+          <div class="msg" id="hid-payload-msg"></div>
+          <p class="hint" id="hid-arm-status">BOOT arm: idle</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- BLE -->
+    <section class="page" id="page-ble">
+      <div class="page-header"><h2>Bluetooth LE</h2><p>Scan, advertise, contact card GATT</p></div>
+      <div class="card" style="margin-bottom:16px"><p id="ble-status" class="status-line">Checking BLE…</p></div>
+      <div class="grid grid-2">
+        <div class="card">
+          <h3>Scan &amp; Advertise</h3>
+          <div class="btn-row"><button class="btn btn-primary" id="btn-ble-scan">Scan (5s)</button></div>
+          <label>Advertise name</label><input id="ble-name" value="HackCard">
+          <div class="btn-row">
+            <button class="btn btn-orange" id="btn-ble-adv-start">Start Advertise</button>
+            <button class="btn btn-ghost" id="btn-ble-adv-stop">Stop</button>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Contact Card</h3>
+          <p class="hint">Share profile over BLE GATT</p>
+          <div class="btn-row">
+            <button class="btn btn-blue" id="btn-ble-contact">Start Contact Card</button>
+            <button class="btn btn-ghost" id="btn-ble-contact-stop">Stop</button>
+          </div>
+          <div class="btn-row"><button class="btn btn-ghost btn-sm" id="btn-ble-refresh">Refresh profile on BLE</button></div>
+          <div class="msg" id="ble-msg"></div>
+        </div>
+        <div class="card" style="grid-column:1/-1">
+          <h3>Scan results</h3>
+          <table class="table desktop-only"><thead><tr><th>Name</th><th>MAC</th><th>RSSI</th></tr></thead>
+          <tbody id="ble-scan-list"><tr><td colspan="3">Run scan</td></tr></tbody></table>
+          <div class="mobile-cards" id="ble-scan-cards"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TERMINAL -->
+    <section class="page" id="page-terminal">
+      <div class="page-header"><h2>Web Terminal</h2><p>Full CLI via <code>/api/cli</code></p></div>
+      <div class="terminal-wrap">
+        <pre class="terminal-out" id="term-out"></pre>
+        <form class="terminal-in" id="term-form">
+          <span>hackcard&gt;</span>
+          <input id="term-input" autocomplete="off" placeholder="help">
+        </form>
+      </div>
+    </section>
+
+    <!-- SETTINGS -->
+    <section class="page" id="page-settings">
+      <div class="page-header"><h2>Settings &amp; System</h2><p>Setup, profile, access point, and device mode</p></div>
+      <div class="warn-box" id="settings-reconnect-notice" hidden></div>
+      <div class="settings-tabs" role="tablist" aria-label="Settings sections">
+        <button type="button" class="btn btn-sm btn-primary settings-tab active" data-settings-tab="general" role="tab">General</button>
+        <button type="button" class="btn btn-sm btn-ghost settings-tab" data-settings-tab="setup" role="tab">Setup</button>
+        <button type="button" class="btn btn-sm btn-ghost settings-tab" data-settings-tab="profile" role="tab">Profile</button>
+        <button type="button" class="btn btn-sm btn-ghost settings-tab" data-settings-tab="ap" role="tab">Wi-Fi AP</button>
+        <button type="button" class="btn btn-sm btn-ghost settings-tab" data-settings-tab="storage" role="tab">Storage</button>
+        <button type="button" class="btn btn-sm btn-ghost settings-tab" data-settings-tab="mode" role="tab">Device Mode</button>
+      </div>
+
+      <div class="settings-panel card" id="settings-general">
+        <h3>General</h3>
+        <p class="hint settings-general-intro">Each section has its own save button. Values are stored in NVS (applied immediately where noted). Reboot once to verify boot LED/tune.</p>
+
+        <div class="settings-section-list">
+          <section class="settings-section" aria-labelledby="set-sec-lab-title">
+            <h4 class="settings-section-title" id="set-sec-lab-title">Lab PIN</h4>
+            <p class="hint">Visible for review; stays in sync with the sidebar Lab PIN.</p>
+            <div class="settings-field-grid">
+              <div class="settings-field">
+                <label for="set-lab-pin">Lab PIN (4–15 characters)</label>
+                <input id="set-lab-pin" type="text" class="pin-visible" autocomplete="off" spellcheck="false" placeholder="e.g. 1234">
+              </div>
+            </div>
+            <div class="btn-row">
+              <button type="button" class="btn btn-primary btn-sm" id="btn-save-lab-pin">Save Lab PIN</button>
+            </div>
+            <div class="msg" id="settings-msg-lab"></div>
+          </section>
+
+          <section class="settings-section" aria-labelledby="set-sec-display-title">
+            <h4 class="settings-section-title" id="set-sec-display-title">Display</h4>
+            <div class="settings-field-grid">
+              <div class="settings-field">
+                <label for="set-brightness">Ring brightness <span class="hint" id="set-brightness-val">80%</span></label>
+                <input type="range" id="set-brightness" min="10" max="100" value="80">
+              </div>
+            </div>
+            <div class="btn-row">
+              <button type="button" class="btn btn-primary btn-sm" id="btn-save-display">Save display</button>
+            </div>
+            <div class="msg" id="settings-msg-display"></div>
+          </section>
+
+          <section class="settings-section" aria-labelledby="set-sec-wifi-led-title">
+            <h4 class="settings-section-title" id="set-sec-wifi-led-title">Wi‑Fi symbol LED</h4>
+            <p class="hint">Single RGB pixel on the Wi‑Fi icon during AP / scan.</p>
+            <div class="settings-field-grid">
+              <div class="settings-field">
+                <label for="set-wifi-led-color">Color</label>
+                <input type="color" id="set-wifi-led-color" value="#00b43c">
+              </div>
+              <div class="settings-field">
+                <label for="set-wifi-led-pattern">Pattern</label>
+                <select id="set-wifi-led-pattern">
+                  <option value="0">Pulse (default)</option>
+                  <option value="1">Solid</option>
+                  <option value="2">Strobe</option>
+                </select>
+              </div>
+            </div>
+            <div class="btn-row">
+              <button type="button" class="btn btn-ghost btn-sm" id="btn-set-preview-wifi-led">Preview LED</button>
+              <button type="button" class="btn btn-primary btn-sm" id="btn-save-wifi-led">Save Wi‑Fi LED</button>
+            </div>
+            <div class="msg" id="settings-msg-wifi-led"></div>
+          </section>
+
+          <section class="settings-section" aria-labelledby="set-sec-wifi-ring-title">
+            <h4 class="settings-section-title" id="set-sec-wifi-ring-title">Ring RGB (Wi‑Fi scan / lab)</h4>
+            <p class="hint">Main ring animation while Wi‑Fi scanning or lab Wi‑Fi activity.</p>
+            <div class="settings-field-grid">
+              <div class="settings-field">
+                <label for="set-wifi-ring-color">Pattern color</label>
+                <input type="color" id="set-wifi-ring-color" value="#0028ff">
+              </div>
+              <div class="settings-field">
+                <label for="set-wifi-ring-pattern">Pattern</label>
+                <select id="set-wifi-ring-pattern" class="settings-select-pattern">
+                  <option value="0">0 — Classic chase</option>
+                  <option value="1">1 — Solid</option><option value="2">2 — Chase</option><option value="3">3 — Rainbow</option>
+                  <option value="4">4 — Breathe</option><option value="5">5 — Sparkle</option><option value="6">6 — Wipe</option>
+                  <option value="7">7 — Alternate</option><option value="8">8 — Dual</option><option value="9">9 — Ping-pong</option>
+                  <option value="10">10 — Theater</option><option value="11">11 — Gradient</option><option value="12">12 — Strobe</option>
+                </select>
+              </div>
+            </div>
+            <div class="btn-row">
+              <button type="button" class="btn btn-ghost btn-sm" id="btn-set-preview-wifi-ring">Preview ring</button>
+              <button type="button" class="btn btn-primary btn-sm" id="btn-save-wifi-ring">Save ring RGB</button>
+            </div>
+            <div class="msg" id="settings-msg-wifi-ring"></div>
+          </section>
+
+          <section class="settings-section" aria-labelledby="set-sec-boot-title">
+            <h4 class="settings-section-title" id="set-sec-boot-title">Boot &amp; startup</h4>
+            <div class="settings-field-grid">
+              <div class="settings-field settings-field-wide">
+                <div class="check-row"><input type="checkbox" id="set-bootanim" checked><label for="set-bootanim">Boot animation on power-up</label></div>
+              </div>
+              <div class="settings-field">
+                <label for="set-boot-color">Pattern color</label>
+                <input type="color" id="set-boot-color" value="#0078ff">
+              </div>
+              <div class="settings-field">
+                <label for="set-boot-pattern">Start LED pattern</label>
+                <select id="set-boot-pattern" class="settings-select-pattern">
+                  <option value="0">0 — Classic chase</option>
+                  <option value="1">1 — Solid</option><option value="2">2 — Chase</option><option value="3">3 — Rainbow</option>
+                  <option value="4">4 — Breathe</option><option value="5">5 — Sparkle</option><option value="6">6 — Wipe</option>
+                  <option value="7">7 — Alternate</option><option value="8">8 — Dual</option><option value="9">9 — Ping-pong</option>
+                  <option value="10">10 — Theater</option><option value="11">11 — Gradient</option><option value="12">12 — Strobe</option>
+                </select>
+              </div>
+              <div class="settings-field">
+                <label for="set-tune-boot">Boot chime</label>
+                <select id="set-tune-boot"><option value="0">Classic</option><option value="1">Soft</option><option value="2">Alert</option><option value="3">Arcade</option><option value="4">Chime</option><option value="5">Pulse</option><option value="6">Warning</option><option value="7">Digital</option></select>
+              </div>
+            </div>
+            <div class="btn-row">
+              <button type="button" class="btn btn-ghost btn-sm" id="btn-set-preview-boot">Preview startup</button>
+              <button type="button" class="btn btn-primary btn-sm" id="btn-save-boot">Save boot &amp; startup</button>
+            </div>
+            <div class="msg" id="settings-msg-boot"></div>
+          </section>
+
+          <section class="settings-section" aria-labelledby="set-sec-buzzer-title">
+            <h4 class="settings-section-title" id="set-sec-buzzer-title">Buzzer</h4>
+            <div class="settings-field-grid">
+              <div class="settings-field settings-field-wide">
+                <div class="check-row"><input type="checkbox" id="set-buzzer" checked><label for="set-buzzer">Buzzer enabled</label></div>
+              </div>
+              <div class="settings-field">
+                <label for="set-buzzer-volume">Volume <span class="hint" id="set-buzzer-volume-val">80%</span></label>
+                <input type="range" id="set-buzzer-volume" min="10" max="100" step="5" value="80">
+              </div>
+              <div class="settings-field">
+                <label for="set-tune-success">Success tune</label>
+                <select id="set-tune-success"><option value="0">Classic</option><option value="1">Soft</option><option value="2">Alert</option><option value="3">Arcade</option><option value="4">Chime</option><option value="5">Pulse</option><option value="6">Warning</option><option value="7">Digital</option></select>
+              </div>
+              <div class="settings-field">
+                <label for="set-tune-error">Error tune</label>
+                <select id="set-tune-error"><option value="0">Classic</option><option value="1">Soft</option><option value="2">Alert</option><option value="3">Arcade</option><option value="4">Chime</option><option value="5">Pulse</option><option value="6">Warning</option><option value="7">Digital</option></select>
+              </div>
+              <div class="settings-field">
+                <label for="set-tune-nfc">NFC tune</label>
+                <select id="set-tune-nfc"><option value="0">Classic</option><option value="1">Soft</option><option value="2">Alert</option><option value="3">Arcade</option><option value="4">Chime</option><option value="5">Pulse</option><option value="6">Warning</option><option value="7">Digital</option></select>
+              </div>
+            </div>
+            <div class="btn-row">
+              <button type="button" class="btn btn-primary btn-sm" id="btn-save-buzzer">Save buzzer</button>
+            </div>
+            <div class="msg" id="settings-msg-buzzer"></div>
+          </section>
+
+          <section class="settings-section" aria-labelledby="set-sec-system-title">
+            <h4 class="settings-section-title" id="set-sec-system-title">System</h4>
+            <div class="settings-field-grid">
+              <div class="settings-field settings-field-wide">
+                <div class="check-row"><input type="checkbox" id="set-logging" checked><label for="set-logging">Activity logging</label></div>
+                <div class="check-row"><input type="checkbox" id="set-portal"><label for="set-portal">Captive portal enabled</label></div>
+              </div>
+            </div>
+            <p class="hint">Wi‑Fi AP name/password: <strong>Wi‑Fi AP</strong> tab.</p>
+            <div class="btn-row">
+              <button type="button" class="btn btn-primary btn-sm" id="btn-save-system">Save system</button>
+            </div>
+            <div class="msg" id="settings-msg-system"></div>
+          </section>
+        </div>
+      </div>
+
+      <div class="settings-panel card" id="settings-setup" hidden>
+        <h3>First-run setup</h3>
+        <label>Your name</label><input id="setup-name">
+        <label>Title</label><input id="setup-title">
+        <label>Email</label><input id="setup-email">
+        <label>AP SSID</label><input id="setup-ap-ssid" placeholder="e.g. HackCard-YourName">
+        <label>AP Password</label><input id="setup-ap-pass" type="password" placeholder="8+ characters (min 8)">
+        <label>Lab PIN</label><input id="setup-lab-pin" type="password" autocomplete="off" placeholder="Unlock lab tools (4–15 chars)">
+        <div class="check-row"><input type="checkbox" id="setup-captive"><label for="setup-captive">Enable captive portal on AP</label></div>
+        <div class="btn-row"><button class="btn btn-primary" id="btn-setup-save">Complete setup</button></div>
+        <div class="msg" id="setup-msg"></div>
+      </div>
+
+      <div class="settings-panel card" id="settings-profile" hidden>
+        <h3>Public profile (Business page)</h3>
+        <p class="hint">This is your resume-style page guests see in Business mode. Preview at <a href="/portal" target="_blank">/portal</a>.</p>
+        <label>Full name</label><input id="prof-name" placeholder="Your name">
+        <label>Professional title</label><input id="prof-title" placeholder="e.g. Security Consultant">
+        <label>Company / organization</label><input id="prof-company" placeholder="Company name">
+        <label>Professional summary</label><textarea id="prof-bio" rows="4" placeholder="Short bio — skills, experience, what you do"></textarea>
+        <label>Email</label><input id="prof-email" type="email" placeholder="you@email.com">
+        <label>Phone</label><input id="prof-phone" type="tel" placeholder="+1 555 000 0000">
+        <label>Website</label><input id="prof-website" placeholder="https://yoursite.com">
+        <label>LinkedIn</label><input id="prof-linkedin" placeholder="https://linkedin.com/in/you">
+        <label>GitHub</label><input id="prof-github" placeholder="https://github.com/you">
+        <div class="btn-row">
+          <button class="btn btn-primary" id="btn-profile-save">Save public profile</button>
+          <a class="btn btn-ghost" href="/portal" target="_blank">Preview page</a>
+          <a class="btn btn-ghost" href="/profile.vcf" target="_blank">vCard</a>
+        </div>
+        <div class="msg" id="profile-msg"></div>
+      </div>
+
+      <div class="settings-panel card" id="settings-ap" hidden>
+        <h3>Access point control</h3>
+        <p id="ap-status-line">—</p>
+        <label>SSID</label><input id="ap-ssid">
+        <label>Password</label><input id="ap-pass" type="password">
+        <label>Channel (1–13)</label><input type="number" id="ap-channel" min="1" max="13" value="6">
+        <div class="btn-row">
+          <button class="btn btn-primary" id="btn-ap-save">Apply AP settings</button>
+          <button class="btn btn-ghost" id="btn-ap-refresh">Refresh status</button>
+        </div>
+        <div class="msg" id="ap-msg"></div>
+      </div>
+
+      <div class="settings-panel card" id="settings-storage" hidden>
+        <h3>Storage (Flash vs SD)</h3>
+        <p class="hint">All lab tools work in <strong>Flash Mode</strong> (no SD). Insert a card for <strong>Full Mode</strong> — large exports and SD-only logging.</p>
+        <p id="storage-tier-line" class="status-line">—</p>
+        <p class="hint" id="storage-flash-free">—</p>
+        <p class="hint" id="storage-sd-exports">Export to SD buttons stay disabled until a card is detected (~8 s after boot).</p>
+        <ul class="nfc-info-list">
+          <li><strong>Without SD:</strong> config, UI, scans, portal, NFC read/write, downloads from flash.</li>
+          <li><strong>With SD:</strong> <code>/wifi/exports/</code>, <code>/nfc/exports/</code>, <code>/payloads/</code> on the card.</li>
+          <li><strong>Dashboard UI</strong> always comes from firmware — not from files on the SD card.</li>
+        </ul>
+      </div>
+      <div class="settings-panel card" id="settings-mode" hidden>
+        <h3>Device mode</h3>
+        <p>Active: <strong id="mode-current">—</strong></p>
+        <p class="hint"><strong>Business</strong> shows your professional contact page to guests. <strong>Lab</strong> opens the full dashboard. Saved across power cycles.</p>
+        <div class="persona-grid" id="mode-grid"></div>
+        <div class="msg" id="mode-msg"></div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- Fixed serial console — every page (workspace bottom) -->
+  <footer class="serial-console" id="serial-console" aria-label="Firmware serial log">
+    <div class="serial-console-bar">
+      <span class="serial-console-dot" id="serial-live-dot"></span>
+      <strong class="serial-console-title">Serial Monitor</strong>
+      <span class="serial-console-meta" id="serial-meta">Live · web log (USB OTG — no PC serial needed)</span>
+      <div class="serial-console-actions">
+        <button type="button" class="serial-btn" id="serial-autoscroll" aria-pressed="true" title="Auto-scroll">Auto ↓</button>
+        <button type="button" class="serial-btn" id="serial-clear">Clear</button>
+        <button type="button" class="serial-btn" id="serial-collapse" aria-expanded="true" title="Collapse panel">▾</button>
+      </div>
+    </div>
+    <div class="serial-console-body" id="serial-console-body">
+      <pre class="serial-console-out" id="serial-dock-out">[SYSTEM] Waiting for device log stream…</pre>
+    </div>
+  </footer>
+  </div>
+</div>
+
+<!-- Mobile bottom navigation -->
+<nav class="bottom-tabs" aria-label="Main navigation">
+  <button type="button" class="bottom-tab active" data-tab="dashboard" data-page="dashboard">
+    <span class="tab-icon">◉</span><span class="tab-label">Home</span>
+  </button>
+  <button type="button" class="bottom-tab" data-tab="wifi" data-page="wifi">
+    <span class="tab-icon">📡</span><span class="tab-label">Wi-Fi</span>
+  </button>
+  <button type="button" class="bottom-tab" data-tab="nfc" data-page="nfc">
+    <span class="tab-icon">⬡</span><span class="tab-label">NFC</span>
+  </button>
+  <button type="button" class="bottom-tab" data-tab="more" id="btn-more-tab">
+    <span class="tab-icon">☰</span><span class="tab-label">More</span>
+  </button>
+</nav>
+
+<!-- Mobile "More" sheet -->
+<div class="more-sheet" id="more-sheet" aria-hidden="true">
+  <div class="more-sheet-backdrop" id="more-backdrop"></div>
+  <div class="more-sheet-panel">
+    <div class="more-sheet-head">
+      <h3>More tools</h3>
+      <button type="button" class="btn btn-ghost btn-sm" id="more-close" aria-label="Close">✕</button>
+    </div>
+    <div class="more-grid">
+      <button type="button" class="more-item nav-link" data-page="training"><span>🎓</span>Training Portal</button>
+      <button type="button" class="more-item nav-link" data-page="monitor"><span>👁</span>Monitor &amp; Sniff</button>
+      <button type="button" class="more-item nav-link" data-page="peripherals"><span>💡</span>RGB &amp; Buzzer</button>
+      <button type="button" class="more-item nav-link" data-page="hid"><span>⌨</span>USB HID</button>
+      <button type="button" class="more-item nav-link" data-page="ble"><span>🔵</span>Bluetooth LE</button>
+      <button type="button" class="more-item nav-link" data-page="terminal"><span>&gt;_</span>Terminal</button>
+      <button type="button" class="more-item nav-link" data-page="settings"><span>⚙</span>Settings</button>
+    </div>
+  </div>
+</div>
+
+<script src="assets/js/api.js"></script>
+<script src="assets/js/dashboard.js"></script>
+</body>
+</html>

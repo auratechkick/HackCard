@@ -1,0 +1,10 @@
+REM HackCard lab demo — Windows
+OS windows
+DELAY 2000
+GUI r
+DELAY 400
+STRING notepad
+ENTER
+DELAY 800
+STRING Hello from HackCard USB HID payload platform!
+ENTER

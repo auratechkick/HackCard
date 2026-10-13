@@ -1,0 +1,4 @@
+REM Run basic system info in terminal (uses HackCard ACTION)
+OS windows
+DELAY 1500
+ACTION terminal_info

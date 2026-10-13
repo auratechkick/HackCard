@@ -1,0 +1,37 @@
+# Build / IDE
+.pio/
+.vscode/
+.idea/
+*.code-workspace
+
+# Arduino / ESP32
+build/
+*.elf
+*.bin
+*.map
+*.hex
+sdkconfig
+sdkconfig.old
+
+# OS
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Python / local tools
+.venv/
+venv/
+__pycache__/
+*.pyc
+
+# Secrets / local overrides (keep user_config.h template; ignore private copies)
+config/user_config.local.h
+*.pem
+*.key
+.env
+.env.*
+
+# Logs / dumps
+*.log
+nfc_dumps/
+/sd_mirror/

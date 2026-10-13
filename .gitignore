@@ -1,0 +1,25 @@
+# Arduino / ESP32
+.pio/
+build/
+*.elf
+*.bin
+*.map
+
+# IDE / editor (do not commit)
+.vscode/
+.idea/
+.cursor/
+*.code-workspace
+.agent/
+**/agent-transcripts/
+
+# OS
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Secrets (never commit personal config overrides)
+**/user_config.local.h
+
+# Generated (re-run scripts/sync-web-ui.ps1)
+# WebUiEmbedded.cpp is committed intentionally for one-shot Arduino builds

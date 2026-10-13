@@ -1,0 +1,10 @@
+REM HackCard lab demo — Linux
+OS linux
+DELAY 2000
+ALT F2
+DELAY 500
+STRING gedit
+ENTER
+DELAY 1200
+STRING Hello from HackCard on Linux!
+ENTER

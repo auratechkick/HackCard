@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Professional Profile</title>
+  <link rel="stylesheet" href="/assets/css/profile.css">
+</head>
+<body>
+  <div class="page-bg"></div>
+  <div class="resume" id="resume">
+    <p class="brand-bar" aria-hidden="true"><span class="hack">Hack</span><span class="card">Card</span></p>
+    <header class="resume-hero">
+      <div class="hero-main">
+        <div class="avatar" id="prof-avatar" aria-hidden="true">?</div>
+        <div class="hero-text">
+          <p class="eyebrow">Digital Profile</p>
+          <h1 id="prof-name">Loading…</h1>
+          <p class="headline" id="prof-title"></p>
+          <p class="company-line" id="prof-company"></p>
+        </div>
+      </div>
+      <div class="hero-qr">
+        <div id="prof-qr" class="qr-box" aria-label="QR code to save contact"></div>
+        <p class="qr-caption">Scan to save contact</p>
+      </div>
+    </header>
+
+    <section class="resume-section" id="section-about" hidden>
+      <h2>Professional Summary</h2>
+      <p class="summary" id="prof-bio"></p>
+    </section>
+
+    <div class="resume-grid">
+      <section class="resume-section" id="section-contact">
+        <h2>Contact</h2>
+        <ul class="info-list" id="contact-list"></ul>
+      </section>
+      <section class="resume-section" id="section-links">
+        <h2>Online</h2>
+        <ul class="info-list" id="links-list"></ul>
+      </section>
+    </div>
+
+    <div class="cta-row">
+      <a class="btn-cta primary" id="btn-vcard" href="/profile.vcf">Save Contact (vCard)</a>
+    </div>
+
+    <footer class="resume-foot">
+      <button type="button" class="operator-link" id="btn-operator">Operator sign-in</button>
+    </footer>
+  </div>
+
+  <dialog id="login-dialog" class="login-dialog">
+    <form method="dialog" id="login-form">
+      <h2>Lab access</h2>
+      <p class="hint">Enter your lab password to open the HackCard dashboard and edit this profile.</p>
+      <label for="login-pin">Password</label>
+      <input id="login-pin" type="password" inputmode="numeric" autocomplete="current-password" required>
+      <div class="btn-row">
+        <button type="submit" class="btn primary">Open dashboard</button>
+        <button type="button" class="btn ghost" id="login-cancel">Cancel</button>
+      </div>
+      <p class="msg" id="login-msg"></p>
+    </form>
+  </dialog>
+
+  <script src="/assets/js/qrcode.min.js"></script>
+  <script src="/assets/js/profile.js"></script>
+</body>
+</html>
