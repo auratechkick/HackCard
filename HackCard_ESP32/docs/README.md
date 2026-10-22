@@ -34,7 +34,7 @@ Welcome. Pick a path below — from first power-on to firmware and API developme
 | Firmware layout & modes | [architecture.md](architecture.md) |
 | Edit web UI → ship in firmware | [hackcard-web-ui/README.md](../hackcard-web-ui/README.md) |
 | REST API used by the dashboard | [api-overview.md](api-overview.md) |
-| 50+ Arduino examples | [EXAMPLES.md](../HackCard_ESP32/library/HackCard/EXAMPLES.md) |
+| 70+ Arduino examples | [EXAMPLES.md](../HackCard_ESP32/library/HackCard/EXAMPLES.md) |
 | Release / test checklist | [RELEASE.md](../HackCard_ESP32/RELEASE.md) |
 | Changelog | [CHANGELOG.md](../HackCard_ESP32/CHANGELOG.md) |
 

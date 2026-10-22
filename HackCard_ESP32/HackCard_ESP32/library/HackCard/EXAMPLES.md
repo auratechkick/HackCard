@@ -32,6 +32,7 @@ In-repo guide: [`docs/CUSTOM_DEVELOPMENT.md`](../../docs/CUSTOM_DEVELOPMENT.md)
 | Wi-Fi symbol LED | `01_Basics/WiFi_Status_LED` |
 | Buzzer tunes | `01_Basics/Buzzer_Tunes` |
 | BOOT button gestures | `01_Basics/BOOT_Button` |
+| RGB + button (RP2350 parity) | `01_Basics/RGB_And_Button` |
 
 ### NFC (`02_NFC`)
 
@@ -40,6 +41,7 @@ In-repo guide: [`docs/CUSTOM_DEVELOPMENT.md`](../../docs/CUSTOM_DEVELOPMENT.md)
 | Read UID | `02_NFC/NFC_Read_UID` |
 | Tag info / NDEF preview | `02_NFC/NFC_Tag_Info` |
 | Type 2 dump | `02_NFC/NFC_Dump_Type2` |
+| Type 2 pages → serial + SD | `02_NFC/NFC_Dump_Pages` |
 | Write URL | `02_NFC/NFC_Write_URL` |
 | Write text | `02_NFC/NFC_Write_Text` |
 | Write vCard | `02_NFC/NFC_Write_vCard` |
@@ -84,6 +86,14 @@ In-repo guide: [`docs/CUSTOM_DEVELOPMENT.md`](../../docs/CUSTOM_DEVELOPMENT.md)
 | Media keys | `05_USB_HID/HID_Media_Keys` |
 | Mouse | `05_USB_HID/HID_Mouse_Control` |
 | Key press | `05_USB_HID/HID_Key_Press` |
+| OS menu shortcuts | `05_USB_HID/HID_OS_Menu` |
+| Lock + screenshot | `05_USB_HID/HID_Lock_And_Screenshot` |
+| Presentation clicker | `05_USB_HID/HID_Presentation_Clicker` |
+| Email signature | `05_USB_HID/HID_Email_Signature` |
+| Meeting notes template | `05_USB_HID/HID_Meeting_Notes` |
+| Copy contact to clipboard | `05_USB_HID/HID_Copy_Contact` |
+| One-button desk remote | `05_USB_HID/HID_Desk_Remote` |
+| Ducky Script runner | `05_USB_HID/HID_Ducky_Scripts` |
 
 ### Storage (`05_Storage`)
 
@@ -109,6 +119,20 @@ In-repo guide: [`docs/CUSTOM_DEVELOPMENT.md`](../../docs/CUSTOM_DEVELOPMENT.md)
 | Wi-Fi guest portal | `06_RealLife/WiFi_Guest_Portal` |
 | BLE business card | `06_RealLife/BLE_Business_Card` |
 | Desk status light | `06_RealLife/Desk_Status_Light` |
+| NFC business card write | `06_RealLife/NFC_Business_Card` |
+| Tap tag → type check-in | `06_RealLife/NFC_Tap_To_Type` |
+| Enrolled tag → lock PC | `06_RealLife/NFC_HID_Lock` |
+| Tag toggles lock/unlock | `06_RealLife/NFC_HID_Lock_Unlock` |
+| Desk presence lock/unlock | `06_RealLife/NFC_Desk_Presence` |
+| Arrive / leave tag actions | `06_RealLife/NFC_Arrive_Leave` |
+| Multi-tag HID actions | `06_RealLife/NFC_HID_Actions` |
+| Conference intro (chat) | `06_RealLife/Conference_Intro` |
+| Open meeting link | `06_RealLife/Meeting_Link` |
+| Type guest Wi-Fi creds | `06_RealLife/Guest_Network_Card` |
+| Standup notes template | `06_RealLife/Standup_Notes` |
+| Break / back chat note | `06_RealLife/Break_Note` |
+
+**RP2350 parity:** The rows above match the HackCard RP2350 library examples, adapted for ESP32-S3 (same NFC/HID flows; ESP32 also has Wi-Fi/BLE/web examples RP2350 does not).
 
 ---
 

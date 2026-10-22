@@ -1,6 +1,6 @@
 # HackCard ESP32
 
-**ESP32-S3 security lab board** — full firmware, **Lab Console** web UI, and **50+ Arduino examples** for custom development.
+**ESP32-S3 security lab board** — full firmware, **Lab Console** web UI, and **70+ Arduino examples** for custom development.
 
 | | |
 |---|---|

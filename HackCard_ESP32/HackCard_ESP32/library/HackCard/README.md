@@ -1,6 +1,6 @@
 # HackCard Arduino Library
 
-Hardware drivers and **50+ Serial examples** covering every major Lab Console feature — for custom development without the full web firmware.
+Hardware drivers and **70+ Serial examples** covering every major Lab Console feature — for custom development without the full web firmware.
 
 Full product firmware (dashboard + REST API): [`HackCard_ESP32.ino`](../../HackCard_ESP32.ino).
 
