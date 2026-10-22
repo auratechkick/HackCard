@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>RP2350 serial lab (brand preview)</title>
+  <link rel="stylesheet" href="../assets/css/dashboard.css">
+  <style>
+    body { min-width: 900px; background: var(--bg); padding: 40px; }
+    .wrap { max-width: 820px; margin: 0 auto; }
+    h1 { font-size: 22px; margin: 0 0 8px; }
+    h1 span { color: var(--brand-red); }
+    .sub { color: var(--muted); margin-bottom: 24px; }
+    .terminal-wrap { border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); }
+    .terminal-out { min-height: 280px; margin: 0; padding: 16px; font-family: var(--mono); font-size: 13px; background: #000; color: #e5e5e5; }
+    .hint { margin-top: 16px; color: var(--muted); font-size: 13px; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Hack<span>Card</span> RP2350</h1>
+    <p class="sub">USB serial lab @ 115200 — no Wi-Fi Lab Console on this board</p>
+    <div class="terminal-wrap">
+      <pre class="terminal-out">HackCard RP2350 serial lab 0.1.0
+PN532 ready · SD mounted
+
+hackcard&gt; help
+  nfc · vcard · sd · hid · ring · tone
+
+hackcard&gt; nfc
+UID 04:A1:B2:C3 · NTAG215
+
+hackcard&gt; </pre>
+    </div>
+    <p class="hint">Same NFC/HID ideas as ESP32 — control via serial commands and Arduino examples.</p>
+  </div>
+</body>
+</html>

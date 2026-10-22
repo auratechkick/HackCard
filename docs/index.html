@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>HackCard — security lab documentation</title>
+  <meta name="description" content="HackCard ESP32 Lab Console and RP2350 serial lab — open firmware for NFC, Wi-Fi, BLE, and USB HID education.">
+  <style>
+    :root {
+      --bg: #0a0a0c;
+      --panel: #12121a;
+      --border: #2a2a38;
+      --text: #f4f4f5;
+      --muted: #a1a1aa;
+      --cyan: #22d3ee;
+      --violet: #a78bfa;
+      --red: #ef4444;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+      background: radial-gradient(ellipse 120% 80% at 50% -20%, #1e1b4b 0%, var(--bg) 55%);
+      color: var(--text);
+      line-height: 1.55;
+    }
+    a { color: var(--cyan); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 2rem 1.25rem 4rem; }
+    header { text-align: center; padding: 2rem 0 1rem; }
+    header h1 { font-size: clamp(2rem, 5vw, 2.75rem); margin: 0 0 0.35rem; font-weight: 800; letter-spacing: -0.02em; }
+    header h1 span { color: var(--red); }
+    header p { color: var(--muted); max-width: 42rem; margin: 0 auto 1.5rem; font-size: 1.05rem; }
+    .badges { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; margin-bottom: 2rem; }
+    .badge {
+      display: inline-block;
+      padding: 0.35rem 0.85rem;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      border: 1px solid var(--border);
+      background: var(--panel);
+    }
+    .badge-cyan { border-color: #0891b2; color: var(--cyan); }
+    .badge-violet { border-color: #7c3aed; color: var(--violet); }
+    .hero-img {
+      width: 100%;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      box-shadow: 0 24px 80px rgba(0,0,0,0.45);
+      margin-bottom: 2.5rem;
+    }
+    h2 { font-size: 1.35rem; margin: 2rem 0 1rem; }
+    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; }
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.25rem 1.35rem;
+    }
+    .card h3 { margin: 0 0 0.5rem; font-size: 1.1rem; }
+    .card p { margin: 0 0 1rem; color: var(--muted); font-size: 0.95rem; }
+    .card ul { margin: 0; padding-left: 1.2rem; color: var(--muted); font-size: 0.92rem; }
+    .card li { margin: 0.35rem 0; }
+    .btn-row { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .btn {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.88rem;
+      border: 1px solid var(--border);
+      background: #1a1a24;
+      color: var(--text);
+    }
+    .btn-primary { background: linear-gradient(135deg, #dc2626, #991b1b); border-color: #b91c1c; }
+    .btn-primary:hover { filter: brightness(1.08); text-decoration: none; }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+    .gallery figure { margin: 0; }
+    .gallery img {
+      width: 100%;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      display: block;
+    }
+    .gallery figcaption {
+      font-size: 0.78rem;
+      color: var(--muted);
+      text-align: center;
+      margin-top: 0.4rem;
+    }
+    footer {
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>Hack<span>Card</span></h1>
+      <p>Open firmware for a wallet-sized security education board — browser <strong>Lab Console</strong> on ESP32-S3, lean USB serial lab on RP2350.</p>
+      <div class="badges">
+        <span class="badge badge-cyan">ESP32 · Lab Console @ 192.168.4.1</span>
+        <span class="badge badge-violet">RP2350 · Serial 115200</span>
+        <span class="badge">72 + 40 Arduino examples</span>
+      </div>
+    </header>
+
+    <img class="hero-img" src="assets/hero.png" alt="HackCard Lab Console dashboard">
+
+    <div class="grid-2">
+      <div class="card">
+        <h3>ESP32-S3 — full product</h3>
+        <p>Soft AP, embedded web UI, Wi-Fi / BLE labs, NFC, USB HID, optional microSD exports.</p>
+        <ul>
+          <li><a href="../HackCard_ESP32/docs/getting-started.md">Getting started</a></li>
+          <li><a href="../HackCard_ESP32/docs/lab-console-user-guide.md">Lab Console user guide</a></li>
+          <li><a href="../HackCard_ESP32/HackCard_ESP32/library/HackCard/EXAMPLES.md">72 examples index</a></li>
+        </ul>
+        <div class="btn-row" style="margin-top:1rem">
+          <a class="btn btn-primary" href="https://github.com/auratechkick/HackCard/tree/main/HackCard_ESP32">Open ESP32 tree</a>
+        </div>
+      </div>
+      <div class="card">
+        <h3>RP2350 — USB-centric lab</h3>
+        <p>No radio — control NFC and HID from Serial Monitor; same teaching flows in a smaller package.</p>
+        <ul>
+          <li><a href="../HackCard_RP2350/docs/getting-started.md">Getting started</a></li>
+          <li><a href="../HackCard_RP2350/library/HackCard_RP2350/EXAMPLES.md">40 examples index</a></li>
+        </ul>
+        <div class="btn-row" style="margin-top:1rem">
+          <a class="btn btn-primary" href="https://github.com/auratechkick/HackCard/tree/main/HackCard_RP2350">Open RP2350 tree</a>
+        </div>
+      </div>
+    </div>
+
+    <h2>Lab Console previews</h2>
+    <p style="color:var(--muted); margin-top:0">Static captures from the real UI (regenerate from <code>HackCard_ESP32/hackcard-web-ui/www/github-preview/</code>).</p>
+    <div class="gallery">
+      <figure><img src="assets/gallery-dashboard.png" alt="Dashboard"><figcaption>Dashboard</figcaption></figure>
+      <figure><img src="assets/gallery-nfc.png" alt="NFC Reader"><figcaption>NFC Reader</figcaption></figure>
+      <figure><img src="assets/gallery-hid.png" alt="USB HID"><figcaption>USB HID</figcaption></figure>
+      <figure><img src="assets/gallery-profile.png" alt="Business profile"><figcaption>Business profile</figcaption></figure>
+      <figure><img src="assets/gallery-rp2350.png" alt="RP2350 serial"><figcaption>RP2350 serial lab</figcaption></figure>
+    </div>
+
+    <h2>Ethics &amp; authorized use</h2>
+    <div class="card">
+      <p style="margin:0">Labs are for <strong>education and authorized testing</strong> on networks, tags, and PCs you own or have written permission to use. Change default AP passwords and Lab PINs before sharing a device.</p>
+      <p style="margin:1rem 0 0"><a href="../HackCard_ESP32/docs/ethics-and-authorized-use.md">Read the ethics guide →</a></p>
+    </div>
+
+    <footer>
+      <a href="https://github.com/auratechkick/HackCard">Repository on GitHub</a> · MIT License
+    </footer>
+  </div>
+</body>
+</html>

@@ -1,14 +1,16 @@
 # Repository documentation assets
 
-Files in **`assets/`** support the [root README](../README.md) on GitHub (hero banner and gallery).
+Files in **`assets/`** and **`index.html`** support the [root README](../README.md) and optional **GitHub Pages** (`Settings ? Pages ? Deploy from branch ? /docs`).
 
-Replace SVG placeholders with **photos or screenshots** when you have them:
+| File | Source |
+|------|--------|
+| `hero.png` | Lab Console dashboard (`github-preview/dashboard.html`) |
+| `gallery-dashboard.png` | Same as hero (status overview) |
+| `gallery-nfc.png` | NFC Reader page |
+| `gallery-hid.png` | USB HID lab |
+| `gallery-profile.png` | Business mode digital profile |
+| `gallery-rp2350.png` | RP2350 serial lab mock terminal |
 
-| File | Suggested capture |
-|------|-------------------|
-| `hero.svg` | Product shot or branded banner (1200×420) |
-| `gallery-lab-console.svg` | Browser at `http://192.168.4.1/` — home or NFC page |
-| `gallery-examples.svg` | Arduino IDE Examples menu or Serial Monitor |
-| `gallery-rp2350.svg` | Serial Monitor showing `help` / `nfc` |
+**Regenerate screenshots:** serve `HackCard_ESP32/hackcard-web-ui/www/` locally (`python -m http.server`), open `github-preview/*.html` at **1280px** width, capture PNGs into `docs/assets/`.
 
-Product documentation lives under **[HackCard_ESP32/docs](../HackCard_ESP32/docs/README.md)** and **[HackCard_RP2350/docs](../HackCard_RP2350/docs/README.md)**.
+Product documentation: **[HackCard_ESP32/docs](../HackCard_ESP32/docs/README.md)** · **[HackCard_RP2350/docs](../HackCard_RP2350/docs/README.md)**.

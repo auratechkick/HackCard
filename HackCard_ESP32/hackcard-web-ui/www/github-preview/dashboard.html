@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=1280">
+  <title>HackCard Lab Console — Dashboard (preview)</title>
+  <link rel="stylesheet" href="../assets/css/dashboard.css">
+  <style>body { min-width: 1280px; } .page { display: block !important; }</style>
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar desktop-only">
+    <div class="brand"><h1>Hack<span>Card</span></h1><p>Lab Console</p></div>
+    <nav class="nav">
+      <div class="nav-section">Overview</div>
+      <button class="nav-link active" type="button"><span class="icon">?</span> Dashboard</button>
+      <div class="nav-section">Wireless Lab</div>
+      <button class="nav-link" type="button"><span class="icon">??</span> Wi-Fi Lab</button>
+      <button class="nav-link" type="button"><span class="icon">??</span> Training Portal</button>
+      <button class="nav-link" type="button"><span class="icon">??</span> Monitor &amp; Sniff</button>
+      <div class="nav-section">Hardware</div>
+      <button class="nav-link" type="button"><span class="icon">?</span> NFC Reader</button>
+      <button class="nav-link" type="button"><span class="icon">??</span> RGB &amp; Buzzer</button>
+      <button class="nav-link" type="button"><span class="icon">?</span> USB HID</button>
+      <button class="nav-link" type="button"><span class="icon">??</span> Bluetooth LE</button>
+      <div class="nav-section">System</div>
+      <button class="nav-link" type="button"><span class="icon">&gt;_</span> Terminal</button>
+      <button class="nav-link" type="button"><span class="icon">?</span> Settings</button>
+    </nav>
+    <div class="sidebar-foot">
+      <div class="sidebar-conn"><span class="status-dot status-dot-sidebar online"></span><span class="sidebar-conn-label">Online</span></div>
+      <label>Lab PIN</label>
+      <input type="password" value="••••" readonly>
+    </div>
+  </aside>
+  <div class="workspace"><main class="main">
+    <section class="page active" id="page-dashboard">
+      <div class="page-header"><h2>Status Overview</h2><p>Live device status from <code>/api/status</code></p></div>
+      <div class="warn-box"><strong>Authorized lab use only.</strong> Wi-Fi offensive tools require explicit permission.</div>
+      <div class="grid grid-4" style="margin-bottom:20px">
+        <div class="card stat-card"><div class="value">1.0.0</div><div class="label">Firmware</div></div>
+        <div class="card stat-card"><div class="value">Full</div><div class="label">Storage</div><p class="hint stat-card-hint">SD mounted</p></div>
+        <div class="card stat-card"><div class="value">HackCard-Setup</div><div class="label">AP SSID</div></div>
+        <div class="card stat-card"><div class="value">192.168.4.1</div><div class="label">Hotspot IP</div></div>
+        <div class="card stat-card"><div class="value">—</div><div class="label">Router IP</div></div>
+        <div class="card stat-card"><div class="value">2</div><div class="label">Clients</div></div>
+      </div>
+      <div class="grid grid-2">
+        <div class="card">
+          <h3>Quick Actions</h3>
+          <div class="btn-row">
+            <button class="btn btn-primary" type="button">Wi-Fi Scan</button>
+            <button class="btn btn-blue" type="button">Read NFC</button>
+            <button class="btn btn-ghost" type="button">Open CLI</button>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Session Info</h3>
+          <p>Mode: <span class="badge badge-blue">Lab</span></p>
+          <p>Uptime: <span>2h 14m</span></p>
+        </div>
+      </div>
+    </section>
+  </main></div>
+</div>
+</body>
+</html>

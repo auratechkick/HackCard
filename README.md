@@ -9,10 +9,13 @@
 [![RP2350 firmware](https://img.shields.io/badge/RP2350-firmware%200.1.0-a78bfa?style=for-the-badge)](HackCard_RP2350/)
 [![Examples](https://img.shields.io/badge/Arduino%20examples-72%20%2B%2040-22d3ee?style=for-the-badge)](HackCard_ESP32/HackCard_ESP32/library/HackCard/EXAMPLES.md)
 [![Documentation](https://img.shields.io/badge/Read%20the-docs-0ea5e9?style=for-the-badge)](HackCard_ESP32/docs/README.md)
+[![Web gallery](https://img.shields.io/badge/Web%20gallery-docs%20site-6366f1?style=for-the-badge)](docs/index.html)
 
 <br>
 
-![HackCard platform overview](docs/assets/hero.svg)
+![HackCard Lab Console — dashboard at http://192.168.4.1/](docs/assets/hero.png)
+
+*Screenshots are from the embedded **Lab Console** UI. Browse more in the [docs gallery](docs/index.html).*
 
 </div>
 
@@ -75,13 +78,17 @@ Many **desk / NFC→lock / Ducky Script** examples were built on RP2350 first; t
 
 ---
 
-## Gallery
+## Gallery — Lab Console & RP2350
 
-| Lab Console (ESP32) | Example library | RP2350 serial lab |
+| Dashboard | NFC Reader | USB HID |
 |:---:|:---:|:---:|
-| ![](docs/assets/gallery-lab-console.svg) | ![](docs/assets/gallery-examples.svg) | ![](docs/assets/gallery-rp2350.svg) |
+| ![](docs/assets/gallery-dashboard.png) | ![](docs/assets/gallery-nfc.png) | ![](docs/assets/gallery-hid.png) |
 
-*Replace SVG placeholders with photos anytime — see [docs/README.md](docs/README.md).*
+| Business profile | RP2350 serial lab |
+|:---:|:---:|
+| ![](docs/assets/gallery-profile.png) | ![](docs/assets/gallery-rp2350.png) |
+
+Console tour: [Lab Console user guide](HackCard_ESP32/docs/lab-console-user-guide.md) · Regenerate captures: [docs/README.md](docs/README.md).
 
 ---
 
@@ -140,7 +147,9 @@ Details: [RP2350 architecture](HackCard_RP2350/docs/architecture.md).
 ```
 HackCard/
 ├── README.md                 ← you are here
-├── docs/assets/              ← README banner & gallery (SVG)
+├── docs/                     ← GitHub Pages gallery + README screenshots
+│   ├── index.html            ← friendly landing (enable Pages → /docs)
+│   └── assets/*.png          ← Lab Console UI captures
 ├── HackCard_ESP32/           ← firmware 1.0.0, Lab Console, 72 examples
 │   ├── HackCard_ESP32/       ← main sketch + src/apps/
 │   ├── hackcard-web-ui/www/  ← UI source (sync into firmware)

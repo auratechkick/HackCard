@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=1280">
+  <title>HackCard Lab Console — NFC (preview)</title>
+  <link rel="stylesheet" href="../assets/css/dashboard.css">
+  <style>body { min-width: 1280px; } .page { display: block !important; }</style>
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar desktop-only">
+    <div class="brand"><h1>Hack<span>Card</span></h1><p>Lab Console</p></div>
+    <nav class="nav">
+      <div class="nav-section">Hardware</div>
+      <button class="nav-link active" type="button"><span class="icon">?</span> NFC Reader</button>
+      <button class="nav-link" type="button"><span class="icon">?</span> USB HID</button>
+    </nav>
+    <div class="sidebar-foot">
+      <div class="sidebar-conn"><span class="status-dot status-dot-sidebar online"></span><span class="sidebar-conn-label">Online</span></div>
+    </div>
+  </aside>
+  <div class="workspace"><main class="main">
+    <section class="page active">
+      <div class="page-header"><h2>NFC Reader</h2><p>PN532 front-end — scan and program physical tags</p></div>
+      <div class="card nfc-hardware-info" style="margin-bottom:16px">
+        <p class="status-line">PN532 ready · I2C 0x24</p>
+      </div>
+      <div class="grid grid-2">
+        <div class="card">
+          <h3>Read &amp; Info</h3>
+          <div class="btn-row">
+            <button class="btn btn-primary" type="button">Read UID</button>
+            <button class="btn btn-blue" type="button">Tag Info</button>
+            <button class="btn btn-ghost" type="button">Dump Type 2</button>
+          </div>
+          <div class="msg">UID 04:A1:B2:C3:D4 · NTAG215</div>
+        </div>
+        <div class="card">
+          <h3>Write to Tag</h3>
+          <label>URL</label><input value="https://example.com">
+          <button class="btn btn-sm btn-primary" type="button">Write URL</button>
+          <label>Plain text</label><input value="Hello from HackCard">
+        </div>
+      </div>
+    </section>
+  </main></div>
+</div>
+</body>
+</html>
