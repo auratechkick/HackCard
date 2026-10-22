@@ -1,6 +1,6 @@
 # HackCard backer guide
 
-Quick reference after you flash firmware **1.0.0**.
+Quick reference after you flash firmware **1.0.2**.
 
 **New owner?** Start with the full walkthrough: [Getting started](../../docs/getting-started.md)  
 **Web UI tour:** [Lab Console user guide](../../docs/lab-console-user-guide.md)
@@ -33,6 +33,7 @@ Insert a **FAT32** card — firmware switches to **Full Mode**:
 - Config may sync with `/config/hackcard.json` on card  
 - Activity log `/logs/activity.csv`  
 - **Export to SD** for Wi-Fi monitor, NFC dumps, capture PCAP, payloads  
+- **Files** page — check the card and open or delete those files without pulling it  
 
 Folder layout: [STORAGE.md](STORAGE.md).  
 **Do not** put the web UI on SD `/www/` — firmware ignores it.

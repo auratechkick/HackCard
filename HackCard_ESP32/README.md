@@ -1,12 +1,12 @@
 # HackCard ESP32
 
-**ESP32-S3 security lab board** — full firmware, **Lab Console** web UI, and **72 Arduino examples** for custom development.
+**ESP32-S3 security lab board** — full firmware, **Lab Console** web UI, and **73 Arduino examples** for custom development.
 
 > **Repository home:** [../README.md](../README.md) (both boards, gallery, quick start)
 
 | | |
 |---|---|
-| **Version** | 1.0.0 |
+| **Version** | 1.0.2 |
 | **License** | [MIT](LICENSE) |
 | **Documentation** | **[Start here → `docs/README.md`](docs/README.md)** |
 
@@ -34,7 +34,9 @@
 - **BLE** — scan, advertise, GATT contact card
 - **USB HID** — keyboard/mouse/media, OS shortcuts, Ducky Script runner (TinyUSB)
 - **Storage** — Flash Mode without SD; Full Mode exports with microSD
-- **HackCard Arduino library** — 72 standalone sketches (Lab Console + RP2350-parity HID/NFC demos)
+- **Files** — check the SD card in the slot; open, download, or delete lab files from the phone
+- **Factory reset example** — `07_System/Factory_Reset` clears saved passwords, lab PIN, profile, and lab files
+- **HackCard Arduino library** — 73 standalone sketches (Lab Console + RP2350-parity HID/NFC demos)
 
 ---
 

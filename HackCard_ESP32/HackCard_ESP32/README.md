@@ -4,7 +4,7 @@ Official firmware, Arduino library, and examples for the **HackCard ESP32-S3** s
 
 | | |
 |---|---|
-| **Firmware** | `1.0.0` — Lab Console, NFC/Wi‑Fi/BLE/HID labs, Flash + SD storage |
+| **Firmware** | `1.0.2` — Lab Console with Files page, NFC/Wi‑Fi/BLE/HID labs, Flash + SD storage |
 | **Docs in repo** | `docs/` — Arduino setup, serial/logging, storage (full site TBD after testing) |
 | **Board** | ESP32-S3FH4R2 · PN532 NFC · RGB ring · Wi-Fi · BLE · USB HID · microSD |
 
@@ -64,7 +64,7 @@ Every major **web dashboard** page has a matching Serial example. Full map: [`li
 | Wi-Fi | AP, scan, STA connect, captive portal, beacon, evil-twin sim, training portal, probe sniff, deauth demo |
 | BLE | Scan, advertise, GATT contact card |
 | USB HID | Type, URL, apps/lock, media, mouse, OS menu, desk remote, Ducky Script, presentation/email/meeting |
-| Storage / System | SD info, lab folders, diagnostics, profile/vCard, modes, activity log |
+| Storage / System | SD info, lab folders, diagnostics, profile/vCard, modes, activity log, factory reset |
 | Real life | Badge tap, guest portal, BLE card, desk light, NFC→HID lock, standup/meeting/guest Wi-Fi notes |
 
 ---
@@ -77,7 +77,8 @@ Every major **web dashboard** page has a matching Serial example. Full map: [`li
 - **USB HID** — keyboard / mouse / media payloads (TinyUSB)  
 - **RGB + buzzer** — 12-LED ring + status LED + piezo feedback  
 - **Storage** — LittleFS (Flash Mode) or microSD (Full Mode)  
-- **Web dashboard** — status, NFC, Wi-Fi, BLE, HID, settings, diagnostics  
+- **Files page** — SD card check plus open, download, and delete without removing the card  
+- **Web dashboard** — status, NFC, Wi-Fi, BLE, HID, files, settings, diagnostics  
 
 Disable apps at compile time in `config/app_registry.h`.
 
@@ -89,7 +90,7 @@ Lab tools are for **education and authorized testing** on systems you own or hav
 
 ---
 
-## Documentation (1.0.0 release)
+## Documentation (1.0.2)
 
 | Topic | Link |
 |-------|------|

@@ -48,5 +48,6 @@ This board has **no Wi-Fi and no BLE**. The ESP32 Wi-Fi and BLE examples are not
 | `05_RealLife/Standup_Notes` | Opens notes and types a standup |
 | `05_RealLife/Break_Note` | Types an away or back message into chat |
 | `06_System/Diagnostics_Self_Test` | MCU, I2C, NFC, SD, button report |
+| `06_System/Factory_Reset` | Clear SD lab files (tags, scripts, logs). Profile stays in user_config.h |
 
 Production QC sketch (not an Arduino library example): `sketches/HackCard_Production_Test/`.

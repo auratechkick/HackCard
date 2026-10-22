@@ -61,3 +61,16 @@ There is no `192.168.4.1` page. This board has no radio.
 | Double | LEDs off |
 
 BOOT and RUN are hardware buttons. Firmware cannot test them as GPIO.
+
+## Clear saved card data
+
+Profile text and the lab PIN live in `config/user_config.h`, not in a settings chip. Saved tag lists, NFC dumps, Ducky scripts, and logs live on the microSD card.
+
+To remove those files:
+
+1. **File → Examples → HackCard RP2350 → 06_System → Factory_Reset**
+2. Upload. Serial Monitor **115200**, line ending Newline.
+3. Hold the **user button** for 3 seconds, or type `RESET`.
+4. Upload `HackCard_RP2350.ino` again.
+
+This does not format the whole card. It removes `/nfc`, `/ducky`, `/payloads`, `/logs`, and `/hackcard`.

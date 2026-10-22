@@ -42,4 +42,5 @@ On first mount, firmware creates (if `SD_AUTO_CREATE_FOLDERS` is true):
 ## User workflow
 
 - **No SD:** use dashboard + HTTP download where available; keep capture/sniff sessions short.
-- **With SD:** use Export → SD after labs; copy `exports` folders to a PC for debrief.
+- **With SD:** use Export → SD after labs, or open **Files** in the Lab Console to read and delete those folders without pulling the card.
+- **Factory reset:** example `07_System/Factory_Reset` clears NVS, flash lab files, and the HackCard folders on the card. Profile and passwords then come from `config/user_config.h` after you reflash the full firmware.

@@ -14,7 +14,7 @@ flowchart LR
   B --> C{Business mode}
   C -->|Profile page| D[Contact / QR / vCard]
   C -->|Enter Lab PIN| E[Lab Console full menu]
-  E --> F[Wi-Fi / NFC / BLE / HID / Settings]
+  E --> F[Wi-Fi / NFC / BLE / HID / Files / Settings]
 ```
 
 | Mode | What you see |
@@ -46,6 +46,7 @@ flowchart LR
 | **NFC** | Read UID, tag info, dump, write URL/text/vCard, erase/clone/kill (Type 2), Classic tools |
 | **BLE** | Scan, advertise, GATT contact card |
 | **HID** | USB keyboard demos — type text, open URL, media keys (host PC required) |
+| **Files** | SD card check, browse flash or SD, open, download, delete |
 | **Settings** | AP password, Lab PIN, ring/buzzer, storage preferences |
 | **Terminal** | Live log from device (same family of messages as USB Serial @ 115200) |
 | **Diagnostics** | Self-test style checks from the web |
@@ -62,6 +63,22 @@ Exact labels match the sidebar (desktop) or **More** tab (phone).
 | **Full Mode** | SD mounted — **Export to SD** enabled for sniff logs, NFC dumps, PCAP, etc. |
 
 Buttons marked as needing SD are disabled until a card is ready (`/api/status` reports `sd_ready`).
+
+### Files page
+
+Open **Files** in the sidebar (or **More** on a phone). The card stays in the slot.
+
+| Action | What it does |
+|--------|----------------|
+| **Check SD card** | Mounts the card if needed and shows type, capacity, used space, and free space |
+| **Browse SD / Browse flash** | Lists that volume. Shortcuts: NFC exports, Wi-Fi exports, payloads, logs |
+| **Open** | Text preview (first 4 KB). Binary files such as `.pcap` stay as a download |
+| **Download** | Copies the full file to the phone or laptop |
+| **Delete** | Asks you to confirm, then checks the Lab PIN |
+
+Setup (`/config`) and the firmware UI (`/www`) are not listed and cannot be deleted.
+
+To wipe the saved password, lab PIN, profile, and lab files back to `user_config.h`, upload the example **`07_System/Factory_Reset`**, confirm with BOOT or `RESET`, then flash `HackCard_ESP32.ino` again. See [EXAMPLES.md](../HackCard_ESP32/library/HackCard/EXAMPLES.md).
 
 Details: [STORAGE.md](../HackCard_ESP32/docs/STORAGE.md).
 

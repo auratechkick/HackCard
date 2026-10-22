@@ -1,6 +1,6 @@
 # HackCard RP2350 Arduino library
 
-Hardware drivers and **40 Serial examples** for NFC, USB HID, RGB, buzzer, button, and optional microSD — **no Wi‑Fi or BLE**.
+Hardware drivers and **41 Serial examples** for NFC, USB HID, RGB, buzzer, button, and optional microSD — **no Wi‑Fi or BLE**.
 
 Product firmware (serial lab): [`../../HackCard_RP2350/HackCard_RP2350.ino`](../../HackCard_RP2350/HackCard_RP2350.ino).
 

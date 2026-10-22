@@ -39,6 +39,7 @@
       <button class="nav-link" data-page="hid"><span class="icon">⌨</span> USB HID</button>
       <button class="nav-link" data-page="ble"><span class="icon">🔵</span> Bluetooth LE</button>
       <div class="nav-section">System</div>
+      <button class="nav-link" data-page="files"><span class="icon">▤</span> Files</button>
       <button class="nav-link" data-page="terminal"><span class="icon">&gt;_</span> Terminal</button>
       <button class="nav-link" data-page="settings"><span class="icon">⚙</span> Settings</button>
     </nav>
@@ -81,6 +82,7 @@
           <div class="btn-row">
             <button class="btn btn-primary nav-link" data-page="wifi">Wi-Fi Scan</button>
             <button class="btn btn-blue nav-link" data-page="nfc">Read NFC</button>
+            <button class="btn btn-ghost nav-link" data-page="files">Files</button>
             <button class="btn btn-ghost nav-link" data-page="terminal">Open CLI</button>
             <a class="btn btn-ghost" href="/portal" target="_blank">Preview Portal</a>
           </div>
@@ -593,6 +595,58 @@
       </div>
     </section>
 
+    <!-- FILES -->
+    <section class="page" id="page-files">
+      <div class="page-header">
+        <h2>Files</h2>
+        <p>Check the microSD card in the slot, then open or delete lab files. The card stays in the device.</p>
+      </div>
+      <div class="grid grid-2">
+        <div class="card">
+          <h3>SD card</h3>
+          <p id="files-sd-line" class="status-line">Checking the slot…</p>
+          <ul class="nfc-info-list" id="files-sd-stats"></ul>
+          <div class="btn-row">
+            <button type="button" class="btn btn-primary btn-sm" id="btn-files-check-sd">Check SD card</button>
+            <button type="button" class="btn btn-ghost btn-sm" id="btn-files-use-sd">Browse SD</button>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Flash</h3>
+          <p id="files-flash-line" class="status-line">—</p>
+          <p class="hint" id="files-flash-stats">On-chip copies of lab files when no card is inserted.</p>
+          <div class="btn-row">
+            <button type="button" class="btn btn-ghost btn-sm" id="btn-files-use-flash">Browse flash</button>
+          </div>
+        </div>
+      </div>
+      <div class="card files-browser">
+        <div class="files-toolbar">
+          <button type="button" class="btn btn-ghost btn-sm" id="btn-files-up">Up</button>
+          <button type="button" class="btn btn-ghost btn-sm" id="btn-files-refresh">Refresh</button>
+          <span class="files-path" id="files-where">SD · /</span>
+        </div>
+        <div class="files-jumps" id="files-jumps">
+          <button type="button" class="btn btn-ghost btn-sm" data-files-jump="/">Root</button>
+          <button type="button" class="btn btn-ghost btn-sm" data-files-jump="/nfc/exports">NFC exports</button>
+          <button type="button" class="btn btn-ghost btn-sm" data-files-jump="/wifi/exports">Wi-Fi exports</button>
+          <button type="button" class="btn btn-ghost btn-sm" data-files-jump="/payloads">Payloads</button>
+          <button type="button" class="btn btn-ghost btn-sm" data-files-jump="/logs">Logs</button>
+        </div>
+        <div class="msg" id="files-msg"></div>
+        <div class="responsive-list">
+          <table class="table desktop-only">
+            <thead><tr><th>Name</th><th>Kind</th><th>Size</th><th></th></tr></thead>
+            <tbody id="files-list"><tr><td colspan="4">Open this page to read the card</td></tr></tbody>
+          </table>
+          <div class="mobile-cards" id="files-cards"></div>
+        </div>
+        <h3 class="files-preview-title">Preview</h3>
+        <p class="hint" id="files-preview-meta">Select Open on a file.</p>
+        <pre class="file-preview" id="files-preview"></pre>
+      </div>
+    </section>
+
     <!-- TERMINAL -->
     <section class="page" id="page-terminal">
       <div class="page-header"><h2>Web Terminal</h2><p>Full CLI via <code>/api/cli</code></p></div>
@@ -832,6 +886,9 @@
         <p id="storage-tier-line" class="status-line">—</p>
         <p class="hint" id="storage-flash-free">—</p>
         <p class="hint" id="storage-sd-exports">Export to SD buttons stay disabled until a card is detected (~8 s after boot).</p>
+        <div class="btn-row">
+          <button type="button" class="btn btn-primary btn-sm nav-link" data-page="files">Open file browser</button>
+        </div>
         <ul class="nfc-info-list">
           <li><strong>Without SD:</strong> config, UI, scans, portal, NFC read/write, downloads from flash.</li>
           <li><strong>With SD:</strong> <code>/wifi/exports/</code>, <code>/nfc/exports/</code>, <code>/payloads/</code> on the card.</li>
@@ -899,6 +956,7 @@
       <button type="button" class="more-item nav-link" data-page="peripherals"><span>💡</span>RGB &amp; Buzzer</button>
       <button type="button" class="more-item nav-link" data-page="hid"><span>⌨</span>USB HID</button>
       <button type="button" class="more-item nav-link" data-page="ble"><span>🔵</span>Bluetooth LE</button>
+      <button type="button" class="more-item nav-link" data-page="files"><span>▤</span>Files</button>
       <button type="button" class="more-item nav-link" data-page="terminal"><span>&gt;_</span>Terminal</button>
       <button type="button" class="more-item nav-link" data-page="settings"><span>⚙</span>Settings</button>
     </div>

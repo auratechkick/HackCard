@@ -4,7 +4,7 @@
 
 - Full HackCard ESP32-S3 firmware (Lab + Business device modes)
 - Embedded Lab Console web UI (sync via `scripts/sync-web-ui.ps1`)
-- Arduino library + **72 examples** under `library/HackCard/examples/` (Lab Console map + RP2350-parity HID/NFC — see `EXAMPLES.md`, `docs/CUSTOM_DEVELOPMENT.md`)
+- Arduino library + **73 examples** under `library/HackCard/examples/` (Lab Console map, factory reset, RP2350-parity HID/NFC — see `EXAMPLES.md`, `docs/CUSTOM_DEVELOPMENT.md`)
 - Flash **and** SD storage paths (exports SD-only)
 
 ## Not included in this repo folder

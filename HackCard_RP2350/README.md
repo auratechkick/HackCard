@@ -36,7 +36,7 @@ HackCard_RP2350/
 ├── README.md                 ← you are here
 ├── docs/                     ← user + developer guides
 ├── HackCard_RP2350/          ← serial lab firmware (.ino + config + SerialLab)
-├── library/HackCard_RP2350/  ← Arduino library + 40 examples
+├── library/HackCard_RP2350/  ← Arduino library + 41 examples
 ├── sketches/                 ← production test (hardware QC)
 └── scripts/install-library.ps1
 ```
@@ -61,6 +61,7 @@ Edit contact card fields in `HackCard_RP2350/config/user_config.h` before sharin
 - **NFC** (PN532 on I2C1) — UID, NDEF, Type 2 dump/erase/kill (authorized tags only)
 - **USB HID** — keyboard/mouse/media to **your** PC (OS-aware shortcuts via library)
 - **microSD** (SPI1, optional) — `/hackcard`, `/nfc`, `/payloads`, `/logs`, `/ducky`
+- **Factory reset example** — `06_System/Factory_Reset` clears those folders. Profile and lab PIN stay in `user_config.h`
 - **RGB ring + buzzer + user button** (GPIO 2)
 
 ---

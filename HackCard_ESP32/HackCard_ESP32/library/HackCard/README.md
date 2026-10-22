@@ -1,12 +1,12 @@
 # HackCard Arduino Library
 
-Hardware drivers and **72 Serial examples** — every major Lab Console feature plus RP2350-parity USB HID and NFC→PC workflows.
+Hardware drivers and **73 Serial examples** — every major Lab Console feature plus RP2350-parity USB HID and NFC→PC workflows.
 
 Full product firmware (dashboard + REST API): [`HackCard_ESP32.ino`](../../HackCard_ESP32.ino).
 
 | | |
 |---|---|
-| **Version** | 1.0.1 (library); pairs with firmware 1.0.0 |
+| **Version** | 1.0.2 (library); pairs with firmware 1.0.2 |
 | **Example index** | [EXAMPLES.md](EXAMPLES.md) |
 | **Custom dev guide** | [docs/CUSTOM_DEVELOPMENT.md](../../docs/CUSTOM_DEVELOPMENT.md) |
 
@@ -41,7 +41,7 @@ Full product firmware (dashboard + REST API): [`HackCard_ESP32.ino`](../../HackC
 | `05_USB_HID` | Keyboard, mouse, media, OS menu, desk remote, Ducky Script, presentation/email/meeting |
 | `05_Storage` | SD info, lab export folders |
 | `06_RealLife` | Badge tap, desk status, NFC lock/unlock, standup/meeting/guest Wi-Fi notes |
-| `07_System` | Profile, modes, diagnostics, activity log |
+| `07_System` | Profile, modes, diagnostics, activity log, factory reset |
 
 ---
 

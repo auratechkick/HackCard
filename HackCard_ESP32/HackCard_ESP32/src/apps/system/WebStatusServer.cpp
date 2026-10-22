@@ -7,6 +7,7 @@
 #include "config/board_config.h"
 #include "DiagnosticsApp.h"
 #include "ActivityLog.h"
+#include "FileBrowser.h"
 #include "../demo/LedBuzzerApp.h"
 #if APP_USB_HID
 #include "../usb/HidLabApp.h"
@@ -216,6 +217,7 @@ bool WebStatusServer::begin(AppContext* ctx) {
 #endif
   sServer.on("/diag", [this]() { handleLabConsoleUi(); });
   sServer.on("/terminal", [this]() { handleLabConsoleUi(); });
+  sServer.on("/files", [this]() { handleLabConsoleUi(); });
   sServer.on("/profile.html", [this]() { handleBusinessProfile(); });
 #endif
 #if APP_PRO_PROFILE
@@ -389,6 +391,11 @@ bool WebStatusServer::begin(AppContext* ctx) {
   sServer.on("/redirect", [this]() { handleCaptiveRedirect(); });
 #endif
   sServer.on("/api/status", [this]() { sServer.send(200, "application/json", buildStatusJson()); });
+  sServer.on("/api/files/status", HTTP_GET, [this]() { handleFilesStatusApi(); });
+  sServer.on("/api/files/list", HTTP_GET, [this]() { handleFilesListApi(); });
+  sServer.on("/api/files/read", HTTP_GET, [this]() { handleFilesReadApi(); });
+  sServer.on("/api/files/delete", HTTP_POST, [this]() { handleFilesDeleteApi(); });
+  sServer.on("/api/files/download", HTTP_GET, [this]() { handleFilesDownloadApi(); });
   sServer.on("/api/setup", HTTP_POST, [this]() { handleSetupApi(); });
   sServer.on("/api/profile/public", HTTP_GET, [this]() { handleProfilePublicApi(); });
   sServer.on("/api/profile", HTTP_POST, [this]() { handleProfileApi(); });
@@ -2925,6 +2932,76 @@ void WebStatusServer::handleWifiTrainingExportSdApi() {
 #else
   sServer.send(503, "application/json", "{\"success\":false,\"sd_ready\":false,\"error\":\"Training disabled\"}");
 #endif
+}
+
+bool WebStatusServer::requireFilesAccess() {
+  if (_ctx && hasLabAccess()) {
+    return true;
+  }
+  sServer.send(403, "application/json", "{\"success\":false,\"error\":\"Lab access required\"}");
+  return false;
+}
+
+void WebStatusServer::handleFilesStatusApi() {
+  if (!requireFilesAccess()) {
+    return;
+  }
+  const bool probe = sServer.hasArg("probe") && sServer.arg("probe") == "1";
+  sServer.send(200, "application/json", FilesBrowser.statusJson(probe));
+}
+
+void WebStatusServer::handleFilesListApi() {
+  if (!requireFilesAccess()) {
+    return;
+  }
+  String json;
+  int status = 200;
+  FilesBrowser.listJson(sServer.arg("volume"), sServer.arg("path"), json, status);
+  sServer.send(status, "application/json", json);
+}
+
+void WebStatusServer::handleFilesReadApi() {
+  if (!requireFilesAccess()) {
+    return;
+  }
+  String json;
+  int status = 200;
+  FilesBrowser.readJson(sServer.arg("volume"), sServer.arg("path"), json, status);
+  sServer.send(status, "application/json", json);
+}
+
+void WebStatusServer::handleFilesDeleteApi() {
+  if (!requireFilesAccess()) {
+    return;
+  }
+  char pinError[64] = {};
+  if (!sServer.hasArg("pin") || !labPinCheck(sServer.arg("pin").c_str(), pinError, sizeof(pinError))) {
+    sServer.send(403, "application/json", "{\"success\":false,\"error\":\"Lab PIN required\"}");
+    return;
+  }
+  String json;
+  int status = 200;
+  FilesBrowser.removeFile(sServer.arg("volume"), sServer.arg("path"), json, status);
+  sServer.send(status, "application/json", json);
+}
+
+void WebStatusServer::handleFilesDownloadApi() {
+  if (!requireFilesAccess()) {
+    return;
+  }
+  fs::File file;
+  String filename;
+  String error;
+  if (!FilesBrowser.openDownload(sServer.arg("volume"), sServer.arg("path"), file, filename, error)) {
+    String json = "{\"success\":false,\"error\":\"";
+    json += error;
+    json += "\"}";
+    sServer.send(404, "application/json", json);
+    return;
+  }
+  sServer.sendHeader("Content-Disposition", "attachment; filename=\"" + filename + "\"");
+  sServer.streamFile(file, "application/octet-stream");
+  file.close();
 }
 
 void WebStatusServer::handleCliBanner() {

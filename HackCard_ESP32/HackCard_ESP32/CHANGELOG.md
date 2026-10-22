@@ -2,6 +2,19 @@
 
 All notable firmware and library releases for HackCard ESP32.
 
+## [1.0.2] — 2026-10-22
+
+### Added
+
+- **Files** page in the Lab Console. Check the microSD card in the slot (type, capacity, used and free space), then open, download, or delete lab files without removing the card. Flash lab files are on the same page.
+- REST routes: `GET /api/files/status`, `/api/files/list`, `/api/files/read`, `/api/files/download`, `POST /api/files/delete` (delete requires the Lab PIN).
+- Example **`07_System/Factory_Reset`**. Hold BOOT for 3 seconds or type `RESET` to clear the saved AP password, lab PIN, profile, NVS backup, flash lab files, and HackCard folders on the SD card. Then upload `HackCard_ESP32.ino` again. Defaults come from `config/user_config.h`.
+
+### Changed
+
+- `FIRMWARE_VERSION` → `1.0.2`
+- Arduino library **1.0.2** — **73** examples
+
 ## [1.0.1] — 2026-10-22 (library + docs; firmware remains 1.0.0)
 
 ### Added

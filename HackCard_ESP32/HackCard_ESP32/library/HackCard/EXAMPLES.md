@@ -1,4 +1,4 @@
-# HackCard Examples — feature index (firmware 1.0.0 · library 1.0.1 · 72 sketches)
+# HackCard Examples — feature index (firmware 1.0.2 · library 1.0.2 · 73 sketches)
 
 Every major **Lab Console** capability has a matching **standalone Arduino example**.  
 Upload **one sketch at a time**. Serial Monitor **115200** (USB CDC).
@@ -110,6 +110,7 @@ In-repo guide: [`docs/CUSTOM_DEVELOPMENT.md`](../../docs/CUSTOM_DEVELOPMENT.md)
 | Profile / vCard | `07_System/Profile_vCard_Export` |
 | Modes / presets | `07_System/Mode_Status_Presets` |
 | Activity log | `07_System/Activity_Log_Demo` |
+| Factory reset (NVS, flash, SD lab files) | `07_System/Factory_Reset` |
 
 ### Real-life demos (`06_RealLife`)
 

@@ -5,7 +5,7 @@
   const pin = () => ($('#set-lab-pin')?.value || $('#labPinMobile')?.value || $('#labPin')?.value || '1234').trim();
   const msg = (el, text, ok) => { if (el) { el.textContent = text; el.className = 'msg ' + (ok ? 'ok' : 'err'); } };
 
-  const MORE_PAGES = ['training', 'monitor', 'peripherals', 'hid', 'ble', 'terminal', 'settings'];
+  const MORE_PAGES = ['training', 'monitor', 'peripherals', 'hid', 'ble', 'files', 'terminal', 'settings'];
   const PATH_TO_PAGE = {
     '/': 'dashboard',
     '/setup': 'settings',
@@ -24,7 +24,8 @@
     '/lab': 'dashboard',
     '/profile': 'settings',
     '/profile/edit': 'settings',
-    '/monitor': 'monitor'
+    '/monitor': 'monitor',
+    '/files': 'files'
   };
   const SETTINGS_TAB_FROM_PATH = {
     '/setup': 'setup',
@@ -37,7 +38,7 @@
   const PAGE_TITLES = {
     dashboard: 'Home', wifi: 'Wi-Fi Lab', training: 'Training', monitor: 'Monitor',
     nfc: 'NFC', peripherals: 'RGB & Buzzer', hid: 'USB HID', ble: 'Bluetooth',
-    terminal: 'Terminal', settings: 'Settings'
+    terminal: 'Terminal', files: 'Files', settings: 'Settings'
   };
 
   function escapeHtml(text) {
@@ -115,7 +116,7 @@
     updateBottomTabs(id);
     const titleEl = $('#mobile-page-title');
     if (titleEl) titleEl.textContent = PAGE_TITLES[id] || id;
-    const loaders = { dashboard: loadDashboard, wifi: loadWifi, training: loadTraining, monitor: loadMonitor, nfc: loadNfc, peripherals: loadPeripherals, hid: loadHid, ble: loadBle, terminal: loadTerminal, settings: loadSettings };
+    const loaders = { dashboard: loadDashboard, wifi: loadWifi, training: loadTraining, monitor: loadMonitor, nfc: loadNfc, peripherals: loadPeripherals, hid: loadHid, ble: loadBle, files: loadFiles, terminal: loadTerminal, settings: loadSettings };
     if (loaders[id]) loaders[id]();
     if (id !== 'training' && window._trainPoll) {
       clearInterval(window._trainPoll);
@@ -1843,6 +1844,257 @@ ENTER
       if (serialMeta) serialMeta.textContent = 'Offline · reconnect to HackCard AP';
     }
   }
+
+  let filesVolume = 'sd';
+  let filesPath = '/';
+  let filesReady = { sd: false, flash: false };
+  let filesStarted = false;
+
+  function formatBytes(n) {
+    const v = Number(n);
+    if (!Number.isFinite(v) || v < 0) return '—';
+    if (v >= 1073741824) return `${(v / 1073741824).toFixed(2)} GB`;
+    if (v >= 1048576) return `${(v / 1048576).toFixed(1)} MB`;
+    if (v >= 1024) return `${Math.round(v / 1024)} KB`;
+    return `${Math.round(v)} B`;
+  }
+
+  function filesParent(path) {
+    if (!path || path === '/') return '/';
+    const cut = path.lastIndexOf('/');
+    return cut <= 0 ? '/' : path.slice(0, cut);
+  }
+
+  function paintFileStatus(data) {
+    filesReady = {
+      sd: !!data?.sd?.ready,
+      flash: !!data?.flash?.ready
+    };
+    const sdLine = $('#files-sd-line');
+    const sdStats = $('#files-sd-stats');
+    if (sdLine) {
+      sdLine.className = 'status-line' + (filesReady.sd ? ' ok' : ' err');
+      sdLine.textContent = filesReady.sd
+        ? `Card in the slot — ${data.sd.type || 'SD'}`
+        : 'No SD card detected in the slot';
+    }
+    if (sdStats) {
+      if (!filesReady.sd) {
+        sdStats.innerHTML = '<li>Insert a FAT32 card, then tap <strong>Check SD card</strong>. You do not need to take it out to read it.</li>';
+      } else {
+        const space = data.sd.usage_known
+          ? `<li><strong>Used:</strong> ${formatBytes(data.sd.used_bytes)}</li><li><strong>Free:</strong> ${formatBytes(data.sd.free_bytes)}</li>`
+          : '<li>Tap <strong>Check SD card</strong> to measure used and free space.</li>';
+        sdStats.innerHTML = `<li><strong>Capacity:</strong> ${formatBytes(data.sd.size_bytes)}</li>${space}`;
+      }
+    }
+    const flashLine = $('#files-flash-line');
+    const flashStats = $('#files-flash-stats');
+    if (flashLine) {
+      flashLine.className = 'status-line' + (filesReady.flash ? ' ok' : ' err');
+      flashLine.textContent = filesReady.flash ? 'Flash storage mounted' : 'Flash storage not mounted';
+    }
+    if (flashStats && filesReady.flash) {
+      flashStats.textContent = `${formatBytes(data.flash.used_bytes)} used · ${formatBytes(data.flash.free_bytes)} free`;
+    }
+  }
+
+  function renderFileRows(entries) {
+    const list = $('#files-list');
+    const cards = $('#files-cards');
+    if (!entries.length) {
+      if (list) list.innerHTML = '<tr><td colspan="4">This folder is empty</td></tr>';
+      if (cards) cards.innerHTML = '<div class="list-card-empty">This folder is empty</div>';
+      return;
+    }
+    const actions = (entry) => {
+      const path = escapeHtml(entry.path);
+      const name = escapeHtml(entry.name);
+      if (entry.dir) {
+        return `<div class="file-actions"><button type="button" class="btn btn-ghost btn-sm" data-files-open-dir="${path}">Open</button></div>`;
+      }
+      const href = escapeHtml(HackCardApi.filesDownloadUrl(filesVolume, entry.path));
+      return `<div class="file-actions">
+        <button type="button" class="btn btn-ghost btn-sm" data-files-open="${path}">Open</button>
+        <a class="btn btn-ghost btn-sm" href="${href}">Download</a>
+        <button type="button" class="btn btn-red btn-sm" data-files-delete="${path}" data-files-name="${name}">Delete</button>
+      </div>`;
+    };
+    if (list) {
+      list.innerHTML = entries.map(entry => `
+        <tr>
+          <td>${escapeHtml(entry.name)}</td>
+          <td>${entry.dir ? 'Folder' : 'File'}</td>
+          <td>${entry.dir ? '—' : formatBytes(entry.size)}</td>
+          <td>${actions(entry)}</td>
+        </tr>`).join('');
+    }
+    if (cards) {
+      cards.innerHTML = entries.map(entry => `
+        <div class="list-card">
+          <div class="list-card-title">${escapeHtml(entry.name)}</div>
+          <div class="list-card-meta"><span>${entry.dir ? 'Folder' : formatBytes(entry.size)}</span></div>
+          ${actions(entry)}
+        </div>`).join('');
+    }
+  }
+
+  async function refreshFileStatus(probe) {
+    const data = await HackCardApi.filesStatus(probe);
+    if (data && data.success) paintFileStatus(data);
+    return data;
+  }
+
+  async function refreshFileList() {
+    const where = $('#files-where');
+    if (where) where.textContent = `${filesVolume === 'sd' ? 'SD' : 'Flash'} · ${filesPath}`;
+    const up = $('#btn-files-up');
+    if (up) up.disabled = filesPath === '/';
+    try {
+      if (filesVolume === 'sd' && !filesReady.sd) {
+        const list = $('#files-list');
+        if (list) list.innerHTML = '<tr><td colspan="4">No SD card in the slot</td></tr>';
+        const cards = $('#files-cards');
+        if (cards) cards.innerHTML = '<div class="list-card-empty">No SD card in the slot</div>';
+        msg($('#files-msg'), 'Insert a FAT32 card and tap Check SD card.', false);
+        return;
+      }
+      const data = await HackCardApi.filesList(filesVolume, filesPath);
+      if (!data || data.success === false) {
+        const list = $('#files-list');
+        if (list) list.innerHTML = '<tr><td colspan="4">Folder not available</td></tr>';
+        const cards = $('#files-cards');
+        if (cards) cards.innerHTML = '<div class="list-card-empty">Folder not available</div>';
+        msg($('#files-msg'), data?.error || 'Could not read this folder', false);
+        return;
+      }
+      renderFileRows(data.entries || []);
+      if (data.truncated) {
+        msg($('#files-msg'), 'Showing the first 48 entries in this folder.', true);
+      } else if ($('#files-msg')?.classList.contains('err')) {
+        msg($('#files-msg'), '', true);
+      }
+    } catch {
+      msg($('#files-msg'), 'Could not read this folder', false);
+    }
+  }
+
+  async function loadFiles() {
+    try {
+      if (!filesStarted) {
+        filesStarted = true;
+        await refreshFileStatus(false);
+        if (!filesReady.sd && filesReady.flash) filesVolume = 'flash';
+      } else {
+        await refreshFileStatus(false);
+      }
+      await refreshFileList();
+    } catch {
+      msg($('#files-msg'), 'Could not reach the device', false);
+    }
+  }
+
+  async function openFilePreview(path) {
+    const meta = $('#files-preview-meta');
+    const preview = $('#files-preview');
+    if (preview) preview.textContent = 'Opening…';
+    const data = await HackCardApi.filesRead(filesVolume, path);
+    if (!data || data.success === false) {
+      if (meta) meta.textContent = path;
+      if (preview) preview.textContent = data?.error || 'Could not open file';
+      return;
+    }
+    const note = data.binary
+      ? `Binary file · ${formatBytes(data.size)}. Use Download to copy it off the device.`
+      : `${formatBytes(data.size)}${data.truncated ? ' · preview is the first 4 KB' : ''}`;
+    if (meta) meta.textContent = `${path} — ${note}`;
+    if (preview) {
+      preview.textContent = data.binary ? '(binary — not shown here)' : (data.content || '');
+    }
+  }
+
+  $('#btn-files-check-sd')?.addEventListener('click', async () => {
+    msg($('#files-msg'), 'Checking the card in the slot…', true);
+    try {
+      const data = await refreshFileStatus(true);
+      if (data?.sd?.ready) {
+        filesVolume = 'sd';
+        const free = data.sd.usage_known ? ` — ${formatBytes(data.sd.free_bytes)} free` : '';
+        msg($('#files-msg'), `SD card ready${free}.`, true);
+      } else {
+        msg($('#files-msg'), 'No SD card detected. Seat a FAT32 card and check again.', false);
+      }
+      await refreshFileList();
+    } catch {
+      msg($('#files-msg'), 'Could not reach the device', false);
+    }
+  });
+
+  $('#btn-files-use-sd')?.addEventListener('click', async () => {
+    filesVolume = 'sd';
+    filesPath = '/';
+    await refreshFileStatus(false);
+    await refreshFileList();
+  });
+
+  $('#btn-files-use-flash')?.addEventListener('click', async () => {
+    filesVolume = 'flash';
+    filesPath = '/';
+    await refreshFileList();
+  });
+
+  $('#btn-files-up')?.addEventListener('click', async () => {
+    filesPath = filesParent(filesPath);
+    await refreshFileList();
+  });
+
+  $('#btn-files-refresh')?.addEventListener('click', () => refreshFileList());
+
+  $('#files-jumps')?.addEventListener('click', async (e) => {
+    const jump = e.target.closest('[data-files-jump]');
+    if (!jump) return;
+    filesPath = jump.dataset.filesJump || '/';
+    await refreshFileList();
+  });
+
+  $('#page-files')?.addEventListener('click', async (e) => {
+    const dirBtn = e.target.closest('[data-files-open-dir]');
+    if (dirBtn) {
+      filesPath = dirBtn.dataset.filesOpenDir;
+      await refreshFileList();
+      return;
+    }
+    const openBtn = e.target.closest('[data-files-open]');
+    if (openBtn) {
+      try {
+        await openFilePreview(openBtn.dataset.filesOpen);
+      } catch {
+        msg($('#files-msg'), 'Could not open that file', false);
+      }
+      return;
+    }
+    const delBtn = e.target.closest('[data-files-delete]');
+    if (!delBtn) return;
+    const path = delBtn.dataset.filesDelete;
+    const name = delBtn.dataset.filesName || path;
+    if (!window.confirm(`Delete ${name} from the ${filesVolume === 'sd' ? 'SD card' : 'flash storage'}?`)) return;
+    try {
+      const data = await HackCardApi.filesDelete({ volume: filesVolume, path, pin: pin() });
+      if (!data || data.success === false) {
+        msg($('#files-msg'), data?.error || 'Delete failed', false);
+        return;
+      }
+      const preview = $('#files-preview');
+      const meta = $('#files-preview-meta');
+      if (preview) preview.textContent = '';
+      if (meta) meta.textContent = 'Select Open on a file.';
+      msg($('#files-msg'), `Deleted ${name}`, true);
+      await refreshFileStatus(false);
+      await refreshFileList();
+    } catch {
+      msg($('#files-msg'), 'Could not delete that file', false);
+    }
+  });
 
   // Init — honor firmware URL paths (/wifi, /nfc, /setup, …)
   sessionStorage.removeItem('hackcard_resume_attempted');

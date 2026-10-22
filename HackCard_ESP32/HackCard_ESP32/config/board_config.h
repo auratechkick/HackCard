@@ -7,7 +7,7 @@
 
 #define BOARD_NAME              "HackCard ESP32-S3"
 #define BOARD_MCU               "ESP32-S3FH4R2"
-#define FIRMWARE_VERSION        "1.0.0"
+#define FIRMWARE_VERSION        "1.0.2"
 #define FLASH_SIZE_MB           4
 #define PSRAM_SIZE_MB           2
 

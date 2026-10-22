@@ -22,6 +22,8 @@ public:
   StorageTier getTier() const { return _tier; }
   bool isSdReady() const { return _sdReady; }
   bool isFlashReady() const { return _flashReady; }
+  /** Mount the microSD now if a card is present and boot scan has not mounted it yet. */
+  bool probeSd();
   /** Retry LittleFS mount if boot mount failed (e.g. first upload pending). */
   bool ensureFlashMounted();
   /** Bytes free on LittleFS (0 if flash not mounted). */

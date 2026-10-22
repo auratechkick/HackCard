@@ -125,6 +125,12 @@ private:
   void handleCaptiveDetect();
   void handleNotFound();
   void handleDiagApi();
+  bool requireFilesAccess();
+  void handleFilesStatusApi();
+  void handleFilesListApi();
+  void handleFilesReadApi();
+  void handleFilesDeleteApi();
+  void handleFilesDownloadApi();
 
   AppContext* _ctx = nullptr;
   bool _running = false;

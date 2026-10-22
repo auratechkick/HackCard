@@ -152,6 +152,15 @@ const HackCardApi = (() => {
     // Peripherals
     apps: (p) => post('/api/apps', enc(p)),
     settings: (p) => post('/api/settings', enc(p)),
+    filesStatus: (probe = false) => get(`/api/files/status${probe ? '?probe=1' : ''}`),
+    filesList: (volume, path) => get(`/api/files/list?volume=${encodeURIComponent(volume)}&path=${encodeURIComponent(path || '/')}`),
+    filesRead: (volume, path) => get(`/api/files/read?volume=${encodeURIComponent(volume)}&path=${encodeURIComponent(path)}`),
+    filesDelete: (p) => post('/api/files/delete', enc(p)),
+    filesDownloadUrl: (volume, path) => {
+      const q = `volume=${encodeURIComponent(volume)}&path=${encodeURIComponent(path)}`;
+      return base() + withLabSession(`/api/files/download?${q}`, '').path;
+    },
+
     logs: () => get('/api/logs', true),
     logsClear: () => post('/api/logs/clear'),
     diagRun: () => post('/api/diag/run'),

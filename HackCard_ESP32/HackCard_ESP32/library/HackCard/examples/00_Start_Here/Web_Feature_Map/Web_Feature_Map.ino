@@ -66,7 +66,7 @@ void setup() {
 
   section("-- 07_System --");
   Serial.println("Diagnostics_Self_Test, Profile_vCard_Export");
-  Serial.println("Mode_Status_Presets, Activity_Log_Demo");
+  Serial.println("Mode_Status_Presets, Activity_Log_Demo, Factory_Reset");
 
   section("-- Build your own --");
   Serial.println("00_Start_Here/Template_Custom_App");

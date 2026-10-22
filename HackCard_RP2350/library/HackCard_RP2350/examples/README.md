@@ -17,7 +17,7 @@ Standalone sketches for **custom development** — one feature per upload.
 | `03_USB_HID` | Keyboard, OS shortcuts, Ducky Script, desk remote |
 | `04_Storage` | SD mount, lab folders |
 | `05_RealLife` | NFC→HID lock, standup/meeting notes, business card |
-| `06_System` | Diagnostics |
+| `06_System` | Diagnostics, factory reset |
 
 Upload **one sketch at a time**. HID sketches need **USB Stack: Pico SDK**.
 

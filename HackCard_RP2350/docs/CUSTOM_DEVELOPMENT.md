@@ -12,7 +12,7 @@ library/HackCard_RP2350/examples/
 ├── 03_USB_HID/        Keyboard, OS menu, desk remote, Ducky Script, …
 ├── 04_Storage/        SD info, lab folders
 ├── 05_RealLife/       NFC lock, standup notes, guest Wi-Fi card, …
-└── 06_System/         Diagnostics
+└── 06_System/         Diagnostics, factory reset
 ```
 
 **Index:** [library/HackCard_RP2350/EXAMPLES.md](../library/HackCard_RP2350/EXAMPLES.md)

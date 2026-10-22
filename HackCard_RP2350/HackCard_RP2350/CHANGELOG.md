@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.0 — factory reset example (2026-10-22)
+
+- Example `06_System/Factory_Reset` clears HackCard folders on the microSD card after the user button is held or Serial `RESET` is typed
+- Profile and lab PIN stay in `config/user_config.h` (this board has no Wi-Fi and no settings filesystem)
+- Example count is **41**
+
 ## 0.1.0 — GitHub (2026-10-22)
 
 - Published under `HackCard_RP2350/` beside `HackCard_ESP32/` in [auratechkick/HackCard](https://github.com/auratechkick/HackCard)

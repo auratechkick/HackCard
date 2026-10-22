@@ -24,6 +24,11 @@ Client reference: `hackcard-web-ui/www/assets/js/api.js`
 | POST | `/api/diag/run` | Diagnostics |
 | POST | `/api/settings` | Device settings |
 | POST | `/api/apps` | Ring demo / peripheral apps |
+| GET | `/api/files/status` | SD and flash ready, card type, capacity. `probe=1` also measures used and free space |
+| GET | `/api/files/list` | `volume=sd\|flash` and `path=` — one folder |
+| GET | `/api/files/read` | Text preview (first 4 KB) or `binary: true` |
+| GET | `/api/files/download` | Full file attachment |
+| POST | `/api/files/delete` | `volume`, `path`, `pin` — Lab PIN required |
 
 ---
 

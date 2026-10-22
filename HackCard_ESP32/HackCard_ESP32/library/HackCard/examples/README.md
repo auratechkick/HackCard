@@ -20,7 +20,7 @@ Standalone sketches for **custom development** — each maps to a feature in the
 | `05_USB_HID` | Keyboard/mouse/media, OS menu, desk remote, Ducky Script, presentation & meeting templates |
 | `05_Storage` | microSD mount and export folders |
 | `06_RealLife` | Badge tap, desk light, NFC lock/unlock, standup/break notes, guest Wi-Fi card |
-| `07_System` | Profile, modes, diagnostics, logs |
+| `07_System` | Profile, modes, diagnostics, logs, factory reset |
 
 ## Every sketch header includes
 

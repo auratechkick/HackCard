@@ -36,8 +36,8 @@ On **RP2350**, there is **no radio** and **no web UI**. You use **USB serial** (
 ```
   HackCard_ESP32/          HackCard_RP2350/
   ESP32-S3 + Wi-Fi/BLE     RP2350 — USB serial lab
-  Lab Console web UI       40 examples · production test
-  72 Arduino examples
+  Lab Console web UI       41 examples · production test
+  73 Arduino examples
 ```
 
 | | **ESP32-S3** | **RP2350** |
@@ -67,14 +67,14 @@ Many **desk / NFC→lock / Ducky Script** examples were built on RP2350 first; t
 
 | | |
 |---|---|
-| **Lab Console** | Responsive web app: NFC, Wi-Fi, BLE, HID, settings, diagnostics, serial terminal |
+| **Lab Console** | Responsive web app: NFC, Wi-Fi, BLE, HID, Files, settings, diagnostics, serial terminal |
 | **Business / Lab modes** | Public profile portal vs PIN-gated security labs |
 | **NFC (PN532)** | UID, NDEF, Type 2 dump/clone/erase/kill, MIFARE Classic labs (ESP32) |
 | **Wi-Fi lab** | Scan, AP, STA, captive portal, beacon, training portal, monitor, karma, EAPOL capture |
 | **BLE** | Scan, advertise, GATT contact card |
 | **USB HID** | Type text, OS shortcuts, media keys, mouse, Ducky Script (library helpers) |
-| **Storage** | Flash-only mode or Full mode with FAT32 microSD export folders |
-| **112 examples** | 72 ESP32 + 40 RP2350 — each maps to a lab feature or real-life demo |
+| **Storage** | Flash-only mode or Full mode with FAT32 microSD. Files page reads the card in the slot. Factory-reset examples clear saved settings |
+| **114 examples** | 73 ESP32 + 41 RP2350 — each maps to a lab feature or real-life demo |
 
 ---
 
@@ -150,11 +150,11 @@ HackCard/
 ├── docs/                     ← GitHub Pages gallery + README screenshots
 │   ├── index.html            ← friendly landing (enable Pages → /docs)
 │   └── assets/*.png          ← Lab Console UI captures
-├── HackCard_ESP32/           ← firmware 1.0.0, Lab Console, 72 examples
+├── HackCard_ESP32/           ← firmware 1.0.0, Lab Console, 73 examples
 │   ├── HackCard_ESP32/       ← main sketch + src/apps/
 │   ├── hackcard-web-ui/www/  ← UI source (sync into firmware)
 │   └── docs/                 ← user + developer guides
-└── HackCard_RP2350/          ← firmware 0.1.0, 40 examples, QC sketch
+└── HackCard_RP2350/          ← firmware 0.1.0, 41 examples, QC sketch
     ├── HackCard_RP2350/      ← serial lab firmware
     ├── library/HackCard_RP2350/
     └── docs/

@@ -54,6 +54,25 @@ void StorageManager::begin() {
   snprintf(_statusLine, sizeof(_statusLine), "Storage: flash ready (SD scan deferred for Wi-Fi)");
 }
 
+bool StorageManager::probeSd() {
+  if (_sdReady) {
+    return true;
+  }
+  if (!mountSd()) {
+    snprintf(_statusLine, sizeof(_statusLine), "Storage: flash only (no SD card)");
+    return false;
+  }
+  _sdReady = true;
+  _tier = StorageTier::SdFull;
+  _sdScanActive = false;
+  if (SD_AUTO_CREATE_FOLDERS) {
+    ensureSdFolders();
+  }
+  snprintf(_statusLine, sizeof(_statusLine), "Storage: SD card ready (Full Mode)");
+  HcSerial.println("[storage] SD card mounted from file browser");
+  return true;
+}
+
 bool StorageManager::ensureFlashMounted() {
   if (_flashReady) {
     return true;

@@ -7,7 +7,7 @@ This guide assumes you have a **HackCard ESP32-S3** board and a **USB-C** cable.
 | Component | Purpose |
 |-----------|---------|
 | **Full firmware** | Wi-Fi AP + **Lab Console** at `http://192.168.4.1/` |
-| **Arduino library** | **72** examples — NFC, Wi-Fi, BLE, USB HID (incl. desk remote & Ducky Script), LEDs |
+| **Arduino library** | **73** examples — NFC, Wi-Fi, BLE, USB HID, and factory reset |
 | **Web UI source** | Edit HTML/JS/CSS, sync into firmware |
 
 You do **not** need a microSD card for the dashboard — the UI is embedded in firmware.
@@ -70,6 +70,10 @@ Detailed UI tour: [Lab Console user guide](lab-console-user-guide.md).
 
 See [STORAGE.md](../HackCard_ESP32/docs/STORAGE.md).  
 Do **not** copy the web UI to SD `/www/` — firmware ignores it.
+
+Open **Files** in the Lab Console to check the card and open or delete exports without removing it.
+
+To clear a saved AP password, lab PIN, and profile back to this file, upload **File → Examples → HackCard → 07_System → Factory_Reset**, confirm, then flash this firmware again.
 
 ---
 

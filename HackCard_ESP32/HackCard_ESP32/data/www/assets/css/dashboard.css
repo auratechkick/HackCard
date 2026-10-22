@@ -515,6 +515,18 @@ input.pin-visible { font-family: var(--mono); letter-spacing: 0.06em; }
   font-family: var(--mono); font-size: 13px; color: #f5f5f5;
   -webkit-overflow-scrolling: touch;
 }
+.files-browser { margin-top: 16px; }
+.files-toolbar, .files-jumps { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.files-jumps { margin-top: 10px; }
+.files-path { font-family: var(--mono); font-size: 13px; color: var(--muted); }
+.files-preview-title { margin: 16px 0 4px; }
+.file-preview {
+  max-height: 280px; overflow: auto; margin: 8px 0 0; padding: 12px;
+  background: #000; border: 1px solid var(--border); border-radius: var(--radius);
+  font-family: var(--mono); font-size: 12px; white-space: pre-wrap; word-break: break-word;
+}
+.file-actions { display: flex; flex-wrap: wrap; gap: 6px; }
+.file-actions .btn, .files-jumps .btn, .files-toolbar .btn { flex: 0 0 auto; min-width: 0; }
 .terminal-in { display: flex; border-top: 1px solid var(--border); }
 .terminal-in span { padding: 12px; color: var(--accent); font-family: var(--mono); font-size: 13px; }
 .terminal-in input { flex: 1; border: none; border-radius: 0; background: var(--surface); min-height: var(--input-h); font-size: var(--text-sm); }
