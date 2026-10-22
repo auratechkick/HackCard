@@ -2,6 +2,19 @@
 
 All notable firmware and library releases for HackCard ESP32.
 
+## [1.0.1] — 2026-10-22 (library + docs; firmware remains 1.0.0)
+
+### Added
+
+- **22 Arduino examples** ported from HackCard RP2350: advanced USB HID (OS menu, desk remote, Ducky Script, presentation clicker, email/meeting/copy templates), NFC page dump to SD, RGB + button, and RealLife NFC→HID / standup / guest Wi-Fi sketches
+- Library module **`HackCardUsb.h`**: `UsbHid`, `Host`, `Ducky`, `HackSd` for ESP32-S3 TinyUSB
+- Script `scripts/port-rp2350-examples.ps1` to re-sync from the RP2350 tree
+
+### Changed
+
+- **`EXAMPLES.md`** and in-repo documentation updated for **72** total library examples
+- Arduino library version **1.0.1** in `library.properties` (firmware `FIRMWARE_VERSION` unchanged)
+
 ## [1.0.0] — 2026-10-02
 
 ### Release (GitHub bundle)

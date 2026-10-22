@@ -74,7 +74,7 @@ Details: [SERIAL_AND_LOGGING.md](SERIAL_AND_LOGGING.md).
 
 ## Custom code
 
-Use **File → Examples → HackCard** — 50+ sketches with commented headers.  
+Use **File → Examples → HackCard** — **72** sketches with commented headers (see [EXAMPLES.md](../library/HackCard/EXAMPLES.md) for the full map).  
 Index: [EXAMPLES.md](../library/HackCard/EXAMPLES.md).
 
 ---

@@ -1,6 +1,6 @@
 # HackCard
 
-Hardware security lab platform — ESP32-S3 firmware, Lab Console web UI, and Arduino examples.
+Hardware security lab platform — ESP32-S3 firmware, Lab Console web UI, and **72** Arduino library examples.
 
 | Folder | Contents |
 |--------|----------|

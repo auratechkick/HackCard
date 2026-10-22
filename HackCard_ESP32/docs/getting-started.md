@@ -7,7 +7,7 @@ This guide assumes you have a **HackCard ESP32-S3** board and a **USB-C** cable.
 | Component | Purpose |
 |-----------|---------|
 | **Full firmware** | Wi-Fi AP + **Lab Console** at `http://192.168.4.1/` |
-| **Arduino library** | 50+ examples to learn NFC, Wi-Fi, BLE, HID, LEDs without the web UI |
+| **Arduino library** | **72** examples — NFC, Wi-Fi, BLE, USB HID (incl. desk remote & Ducky Script), LEDs |
 | **Web UI source** | Edit HTML/JS/CSS, sync into firmware |
 
 You do **not** need a microSD card for the dashboard — the UI is embedded in firmware.

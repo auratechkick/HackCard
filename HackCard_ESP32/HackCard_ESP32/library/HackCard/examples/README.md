@@ -13,13 +13,13 @@ Standalone sketches for **custom development** — each maps to a feature in the
 | Folder | Topics |
 |--------|--------|
 | `00_Start_Here` | Map + template for your own app |
-| `01_Basics` | RGB ring, buzzer, BOOT button, Wi-Fi LED |
-| `02_NFC` | PN532 read/write/dump/classic labs |
+| `01_Basics` | RGB ring, buzzer, BOOT button, Wi-Fi LED, RGB + button gestures |
+| `02_NFC` | PN532 read/write/dump, page dump to SD, classic labs |
 | `03_WiFi` | Scan, AP, portal, monitor, karma, capture |
 | `04_BLE` | Scan, advertise, GATT contact card |
-| `05_USB_HID` | Keyboard/mouse/media (TinyUSB) |
+| `05_USB_HID` | Keyboard/mouse/media, OS menu, desk remote, Ducky Script, presentation & meeting templates |
 | `05_Storage` | microSD mount and export folders |
-| `06_RealLife` | Combined product-style demos |
+| `06_RealLife` | Badge tap, desk light, NFC lock/unlock, standup/break notes, guest Wi-Fi card |
 | `07_System` | Profile, modes, diagnostics, logs |
 
 ## Every sketch header includes
@@ -31,6 +31,8 @@ Standalone sketches for **custom development** — each maps to a feature in the
 - **ETHICS** — on RF/tag/PC lab sketches  
 
 Upload **one example at a time** (Wi-Fi and HID sketches change USB/Wi-Fi mode).
+
+**Count:** 72 `.ino` files — full table in [`../EXAMPLES.md`](../EXAMPLES.md). RP2350-only flows live under `05_USB_HID` and `06_RealLife` (use `#include <HackCardUsb.h>`).
 
 ## Full product firmware
 

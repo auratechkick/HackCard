@@ -1,6 +1,6 @@
 # HackCard ESP32
 
-**ESP32-S3 security lab board** — full firmware, **Lab Console** web UI, and **70+ Arduino examples** for custom development.
+**ESP32-S3 security lab board** — full firmware, **Lab Console** web UI, and **72 Arduino examples** for custom development.
 
 | | |
 |---|---|
@@ -29,9 +29,9 @@
 - **NFC** (PN532) — read, write, dump, Classic lab tools
 - **Wi-Fi** — scan, AP, portal, training, monitor, karma, EAPOL capture
 - **BLE** — scan, advertise, GATT contact card
-- **USB HID** — keyboard/mouse demos (TinyUSB)
+- **USB HID** — keyboard/mouse/media, OS shortcuts, Ducky Script runner (TinyUSB)
 - **Storage** — Flash Mode without SD; Full Mode exports with microSD
-- **HackCard Arduino library** — one example per major feature, heavily commented
+- **HackCard Arduino library** — 72 standalone sketches (Lab Console + RP2350-parity HID/NFC demos)
 
 ---
 

@@ -7,17 +7,17 @@ Many backers run the **full firmware** (`HackCard_ESP32.ino`) for the Lab Consol
 ```
 HackCard_ESP32/library/HackCard/examples/
 ├── 00_Start_Here/     Web_Feature_Map, Template_Custom_App
-├── 01_Basics/         Ring, buzzer, BOOT button, Wi-Fi status LED
-├── 02_NFC/            Read, dump, write, classic labs
+├── 01_Basics/         Ring, buzzer, BOOT button, Wi-Fi status LED, RGB_And_Button
+├── 02_NFC/            Read, dump, dump pages→SD, write, classic labs
 ├── 03_WiFi/           Scan, AP, portal, monitor, karma, capture, …
 ├── 04_BLE/            Scan, advertise, GATT contact card
-├── 05_USB_HID/        Keyboard / mouse / media demos (TinyUSB)
+├── 05_USB_HID/        Keyboard / mouse / media + OS shortcuts, desk remote, Ducky Script
 ├── 05_Storage/        SD mount, lab folder layout
-├── 06_RealLife/       Combined product-style demos
+├── 06_RealLife/       Product demos + NFC→HID lock, standup/meeting notes, guest Wi-Fi card
 └── 07_System/         Profile, modes, diagnostics, activity log
 ```
 
-**Master index:** [`library/HackCard/EXAMPLES.md`](../library/HackCard/EXAMPLES.md) — maps every Lab Console area to a sketch.
+**Master index:** [`library/HackCard/EXAMPLES.md`](../library/HackCard/EXAMPLES.md) — **72 sketches** (Lab Console map + HackCard RP2350-parity HID/NFC flows).
 
 Each example `.ino` begins with a **release 1.0.0** comment block (feature, full-firmware page, board settings, how to run, libraries, ethics). See also [`library/HackCard/examples/README.md`](../library/HackCard/examples/README.md).
 
@@ -50,7 +50,25 @@ Each example `.ino` begins with a **release 1.0.0** comment block (feature, full
 | `Nfc` | PN532 over I2C |
 | `Ble` | BLE scan / advertise helpers |
 
-Wi-Fi lab examples use **`WiFi.h`** / **`esp_wifi.h`** directly. HID examples use **TinyUSB** (see any `05_USB_HID/*` sketch).
+Wi-Fi lab examples use **`WiFi.h`** / **`esp_wifi.h`** directly.
+
+### USB HID helpers (`HackCardUsb.h`)
+
+Sketches ported from **HackCard RP2350** (and advanced HID demos) include:
+
+```cpp
+#include <HackCard.h>
+#include <HackCardUsb.h>
+```
+
+| Object | Role |
+|--------|------|
+| `UsbHid` | Keyboard, consumer (media), mouse |
+| `Host` | OS-aware shortcuts (lock, screenshot, open URL, notes, clipboard) |
+| `Ducky` | Run Ducky Script text (see `HID_Ducky_Scripts`) |
+| `HackSd` | Optional microSD for `/nfc`, `/ducky`, exports |
+
+Board: **USB Mode = USB-OTG (TinyUSB)**. Simpler HID tutorials may use `USBHIDKeyboard` directly — see `HID_Type_Hello`.
 
 ## Full firmware vs examples
 

@@ -1,12 +1,12 @@
 # HackCard Arduino Library
 
-Hardware drivers and **70+ Serial examples** covering every major Lab Console feature — for custom development without the full web firmware.
+Hardware drivers and **72 Serial examples** — every major Lab Console feature plus RP2350-parity USB HID and NFC→PC workflows.
 
 Full product firmware (dashboard + REST API): [`HackCard_ESP32.ino`](../../HackCard_ESP32.ino).
 
 | | |
 |---|---|
-| **Version** | 1.0.0 |
+| **Version** | 1.0.1 (library); pairs with firmware 1.0.0 |
 | **Example index** | [EXAMPLES.md](EXAMPLES.md) |
 | **Custom dev guide** | [docs/CUSTOM_DEVELOPMENT.md](../../docs/CUSTOM_DEVELOPMENT.md) |
 
@@ -34,13 +34,13 @@ Full product firmware (dashboard + REST API): [`HackCard_ESP32.ino`](../../HackC
 
 | Folder | Covers |
 |--------|--------|
-| `01_Basics` | Ring control, demos, buzzer, BOOT, Wi-Fi LED |
-| `02_NFC` | Read, dump, write, erase, clone, kill, Mifare Classic |
+| `01_Basics` | Ring control, demos, buzzer, BOOT, Wi-Fi LED, RGB + button |
+| `02_NFC` | Read, dump/pages+SD, write, erase, clone, kill, Mifare Classic |
 | `03_WiFi` | Scan, AP, portal, beacon, twin, training, monitor, karma, EAPOL |
 | `04_BLE` | Scan, advertise, contact card |
-| `05_USB_HID` | Keyboard, mouse, media, URL, lock |
+| `05_USB_HID` | Keyboard, mouse, media, OS menu, desk remote, Ducky Script, presentation/email/meeting |
 | `05_Storage` | SD info, lab export folders |
-| `06_RealLife` | End-to-end demos |
+| `06_RealLife` | Badge tap, desk status, NFC lock/unlock, standup/meeting/guest Wi-Fi notes |
 | `07_System` | Profile, modes, diagnostics, activity log |
 
 ---
@@ -61,6 +61,8 @@ void setup() {
 ```
 
 Pin map: `HackCard_Pins.h` (matches `config/board_config.h` in full firmware).
+
+**USB host helpers** (RP2350 parity): `#include <HackCardUsb.h>` after `<HackCard.h>` for `UsbHid`, `Host`, `Ducky`, and `HackSd` in HID / Ducky / SD-heavy sketches.
 
 ---
 

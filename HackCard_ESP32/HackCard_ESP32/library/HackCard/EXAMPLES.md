@@ -1,4 +1,4 @@
-# HackCard Examples — feature index (firmware 1.0.0)
+# HackCard Examples — feature index (firmware 1.0.0 · library 1.0.1 · 72 sketches)
 
 Every major **Lab Console** capability has a matching **standalone Arduino example**.  
 Upload **one sketch at a time**. Serial Monitor **115200** (USB CDC).

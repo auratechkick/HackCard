@@ -59,13 +59,13 @@ Every major **web dashboard** page has a matching Serial example. Full map: [`li
 | Category | Examples |
 |----------|----------|
 | Start here | Web feature map, **Template_Custom_App** (fork this) |
-| Basics | RGB ring, LED demos 1–12, buzzer, BOOT, Wi-Fi LED |
-| NFC | Read/info/dump, write URL/text/vCard, erase/clone/kill, Classic dump/clone/keyscan |
+| Basics | RGB ring, LED demos 1–12, buzzer, BOOT, Wi-Fi LED, RGB_And_Button |
+| NFC | Read/info/dump, dump pages→SD, write URL/text/vCard, erase/clone/kill, Classic dump/clone/keyscan |
 | Wi-Fi | AP, scan, STA connect, captive portal, beacon, evil-twin sim, training portal, probe sniff, deauth demo |
 | BLE | Scan, advertise, GATT contact card |
-| USB HID | Type, open URL, apps/lock, media, mouse, keys |
-| Storage / System | SD info, diagnostics, profile/vCard, modes, activity log |
-| Real life | Badge tap, guest portal, BLE card, desk status light |
+| USB HID | Type, URL, apps/lock, media, mouse, OS menu, desk remote, Ducky Script, presentation/email/meeting |
+| Storage / System | SD info, lab folders, diagnostics, profile/vCard, modes, activity log |
+| Real life | Badge tap, guest portal, BLE card, desk light, NFC→HID lock, standup/meeting/guest Wi-Fi notes |
 
 ---
 
