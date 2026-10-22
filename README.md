@@ -9,13 +9,13 @@
 [![RP2350 firmware](https://img.shields.io/badge/RP2350-firmware%200.1.0-a78bfa?style=for-the-badge)](HackCard_RP2350/)
 [![Examples](https://img.shields.io/badge/Arduino%20examples-72%20%2B%2040-22d3ee?style=for-the-badge)](HackCard_ESP32/HackCard_ESP32/library/HackCard/EXAMPLES.md)
 [![Documentation](https://img.shields.io/badge/Read%20the-docs-0ea5e9?style=for-the-badge)](HackCard_ESP32/docs/README.md)
-[![Web gallery](https://img.shields.io/badge/Web%20gallery-docs%20site-6366f1?style=for-the-badge)](docs/index.html)
+[![Web gallery](https://img.shields.io/badge/Web%20gallery-GitHub%20Pages-6366f1?style=for-the-badge)](https://auratechkick.github.io/HackCard/)
 
 <br>
 
 ![HackCard Lab Console — dashboard at http://192.168.4.1/](docs/assets/hero.png)
 
-*Screenshots are from the embedded **Lab Console** UI. Browse more in the [docs gallery](docs/index.html).*
+*Screenshots are from the embedded **Lab Console** UI. Browse more on [GitHub Pages](https://auratechkick.github.io/HackCard/) or [docs/index.html](docs/index.html).*
 
 </div>
 
