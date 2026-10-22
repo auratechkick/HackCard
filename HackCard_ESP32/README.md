@@ -19,6 +19,7 @@
 | **I flash firmware / develop** | [Arduino setup](HackCard_ESP32/docs/ARDUINO_SETUP.md) · [Architecture](docs/architecture.md) |
 | **I write my own sketches** | [Examples index](HackCard_ESP32/library/HackCard/EXAMPLES.md) · [Custom development](HackCard_ESP32/docs/CUSTOM_DEVELOPMENT.md) |
 | **I automate the device** | [API overview](docs/api-overview.md) |
+| **HackCard RP2350 (USB serial lab)** | [HackCard_RP2350/docs/README.md](../HackCard_RP2350/docs/README.md) |
 
 ---
 

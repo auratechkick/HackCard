@@ -41,3 +41,5 @@ Welcome. Pick a path below — from first power-on to firmware and API developme
 ## Version
 
 Documentation matches firmware **1.0.0** (`HackCard_ESP32/config/board_config.h`). Library examples and `EXAMPLES.md` were expanded in **October 2026** (RP2350 parity — see [CHANGELOG](../HackCard_ESP32/CHANGELOG.md)).
+
+**HackCard RP2350** (serial lab, no Wi‑Fi): [../../HackCard_RP2350/docs/README.md](../../HackCard_RP2350/docs/README.md)

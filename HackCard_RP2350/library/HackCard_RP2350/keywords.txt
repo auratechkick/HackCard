@@ -1,0 +1,47 @@
+#######################################
+# Syntax Coloring Map For HackCard RP2350
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+HalRgbRing	KEYWORD1
+HalBuzzer	KEYWORD1
+HalButtons	KEYWORD1
+HalNfc	KEYWORD1
+HalSd	KEYWORD1
+HalUsbHid	KEYWORD1
+NfcTagInfo	KEYWORD1
+NfcTagDetail	KEYWORD1
+RingPattern	KEYWORD1
+ButtonGesture	KEYWORD1
+BuzzerTuneId	KEYWORD1
+HackOs	KEYWORD1
+HidHost	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+begin	KEYWORD2
+update	KEYWORD2
+readTag	KEYWORD2
+writeNdefUri	KEYWORD2
+writeNdefText	KEYWORD2
+writeNdefVcard	KEYWORD2
+playSuccess	KEYWORD2
+setPattern	KEYWORD2
+consumeGesture	KEYWORD2
+
+#######################################
+# Instances (LITERAL1)
+#######################################
+
+RgbRing	LITERAL1
+Buzzer	LITERAL1
+Buttons	LITERAL1
+Nfc	LITERAL1
+HackSd	LITERAL1
+UsbHid	LITERAL1
+Host	LITERAL1
