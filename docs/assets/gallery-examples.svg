@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="400" viewBox="0 0 640 400" role="img" aria-label="Arduino examples concept">
+  <rect width="640" height="400" fill="#0f172a"/>
+  <text x="320" y="48" fill="#f8fafc" font-family="system-ui,sans-serif" font-size="20" font-weight="600" text-anchor="middle">112 Arduino examples (ESP32 + RP2350)</text>
+  <g font-family="monospace" font-size="12" fill="#e2e8f0">
+    <text x="48" y="100">01_Basics · Ring · Buzzer · BOOT</text>
+    <text x="48" y="130">02_NFC · Read · Dump · Write · Classic</text>
+    <text x="48" y="160">03_WiFi · Scan · Portal · Karma · EAPOL</text>
+    <text x="48" y="190">04_BLE · Scan · GATT contact card</text>
+    <text x="48" y="220">05_USB_HID · Ducky · Desk remote · OS menu</text>
+    <text x="48" y="250">06_RealLife · NFC lock · Standup notes</text>
+  </g>
+  <rect x="360" y="90" width="232" height="260" rx="8" fill="#1e293b" stroke="#6366f1"/>
+  <text x="476" y="130" fill="#a5b4fc" font-family="system-ui,sans-serif" font-size="13" text-anchor="middle">File ’ Examples</text>
+  <text x="476" y="160" fill="#cbd5e1" font-family="system-ui,sans-serif" font-size="12" text-anchor="middle">HackCard / HackCard RP2350</text>
+</svg>

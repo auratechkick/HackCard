@@ -2,6 +2,8 @@
 
 Serial-lab firmware, Arduino library, and examples for the **HackCard RP2350** board.
 
+> **Repository home:** [../README.md](../README.md) (both boards, gallery, quick start)
+
 This MCU has **no Wi-Fi and no BLE**. There is no Lab Console web UI — you use **USB serial** (115200), the **user button**, **NFC**, the **RGB strip**, and **USB HID** on the PC the board is plugged into.
 
 | | |

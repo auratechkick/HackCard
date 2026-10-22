@@ -2,6 +2,8 @@
 
 **ESP32-S3 security lab board** — full firmware, **Lab Console** web UI, and **72 Arduino examples** for custom development.
 
+> **Repository home:** [../README.md](../README.md) (both boards, gallery, quick start)
+
 | | |
 |---|---|
 | **Version** | 1.0.0 |
