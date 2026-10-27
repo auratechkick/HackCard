@@ -29,8 +29,8 @@
 static const char* kName = "Alex Rivera";
 static const char* kEmail = "alex@example.com";
 static const char* kTitle = "Security Researcher";
-static const char* kOrg = "Hardware Hack Space";
-static const char* kUrl = "https://hardwarehackspace.github.io/hackcard-docs/";
+static const char* kOrg = "HackCard Lab";
+static const char* kUrl = "https://auratechkick.github.io/HackCard/";
 
 static const char* kServiceUuid = "0000fc00-0000-1000-8000-00805f9b34fb";
 static const char* kVcardUuid = "0000fc01-0000-1000-8000-00805f9b34fb";

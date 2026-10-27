@@ -90,4 +90,4 @@ All notable firmware and library releases for HackCard ESP32.
 
 ## Earlier phases
 
-Phases 0–19 built core HAL, storage modes, NFC labs, Wi-Fi labs, BLE contact card, and the web status dashboard. See repository history and the [docs changelog](https://hardwarehackspace.github.io/hackcard-docs/resources/changelog/).
+Phases 0–19 built core HAL, storage modes, NFC labs, Wi-Fi labs, BLE contact card, and the web status dashboard. See git history on [auratechkick/HackCard](https://github.com/auratechkick/HackCard) and the [ESP32 docs hub](../docs/README.md).

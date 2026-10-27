@@ -26,10 +26,10 @@
 
 static const char* kName = "Alex Rivera";
 static const char* kTitle = "Security Researcher";
-static const char* kOrg = "Hardware Hack Space";
+static const char* kOrg = "HackCard Lab";
 static const char* kEmail = "alex@example.com";
 static const char* kPhone = "+1 555 0100";
-static const char* kUrl = "https://hardwarehackspace.github.io/hackcard-docs/";
+static const char* kUrl = "https://auratechkick.github.io/HackCard/";
 
 String buildVcard() {
   String v;

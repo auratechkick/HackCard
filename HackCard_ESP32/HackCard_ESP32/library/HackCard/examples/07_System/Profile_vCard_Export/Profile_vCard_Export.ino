@@ -27,12 +27,12 @@
 
 static const char* kName = "Alex Rivera";
 static const char* kTitle = "Security Researcher";
-static const char* kOrg = "Hardware Hack Space";
+static const char* kOrg = "HackCard Lab";
 static const char* kEmail = "alex@example.com";
 static const char* kPhone = "+1 555 0100";
-static const char* kWebsite = "https://hardwarehackspace.github.io/hackcard-docs/";
+static const char* kWebsite = "https://auratechkick.github.io/HackCard/";
 static const char* kLinkedIn = "https://linkedin.com/in/example";
-static const char* kGithub = "https://github.com/hardwarehackspace";
+static const char* kGithub = "https://github.com/auratechkick/HackCard";
 static const char* kBio = "Ethical hacking & embedded security.";
 
 String buildVcard() {

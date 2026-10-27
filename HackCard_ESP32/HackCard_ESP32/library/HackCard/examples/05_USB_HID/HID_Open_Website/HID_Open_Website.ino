@@ -28,7 +28,7 @@
 
 USBHIDKeyboard Keyboard;
 
-static const char* kUrl = "https://hardwarehackspace.github.io/hackcard-docs/";
+static const char* kUrl = "https://auratechkick.github.io/HackCard/";
 enum class TargetOs { Windows, Mac, Linux };
 static const TargetOs kOs = TargetOs::Windows;  // EDIT ME
 

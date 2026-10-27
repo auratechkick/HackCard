@@ -31,7 +31,7 @@ static const char* kPass = "welcome123";  // min 8 chars
 
 // Edit for your event
 static const char* kHostName = "Alex Rivera";
-static const char* kEvent = "Hardware Hack Meetup";
+static const char* kEvent = "HackCard Demo Meetup";
 static const char* kMessage = "Thanks for joining our guest Wi-Fi demo.";
 
 WebServer server(80);

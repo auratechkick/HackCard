@@ -25,7 +25,7 @@
 #include <HackCard.h>
 
 // Change this URL before uploading
-static const char* kUrl = "https://hardwarehackspace.github.io/hackcard-docs/";
+static const char* kUrl = "https://auratechkick.github.io/HackCard/";
 
 // setup() - board init, Serial, peripherals
 void setup() {
