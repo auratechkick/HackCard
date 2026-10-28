@@ -59,4 +59,5 @@ Profile name and **`LAB_MODE_PIN`** live in **`user_config.h`**, not on SD.
 
 ## Next step
 
+→ [Pin mapping (GPIO reference)](../hardware/pin-mapping.md)  
 → [Install tools & connect USB](first-setup.md)

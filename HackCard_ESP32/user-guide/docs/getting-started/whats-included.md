@@ -67,4 +67,5 @@ The dashboard shows which tier is active. You do **not** copy the web UI to the 
 
 ## Next step
 
+→ [Pin mapping (GPIO reference)](../hardware/pin-mapping.md)  
 → [Install tools & connect USB](first-setup.md)

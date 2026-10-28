@@ -79,6 +79,8 @@ nav:
       - Arduino examples: getting-started/arduino-examples.md
       - Write your own sketch: getting-started/write-your-own-sketch.md
       - Next steps: getting-started/next-steps.md
+  - Hardware:
+      - Pin mapping: hardware/pin-mapping.md
   - Resources:
       - Authorized use: resources/authorized-use.md
 

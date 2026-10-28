@@ -15,9 +15,9 @@
 
 <br>
 
-![HackCard Lab Console — dashboard at http://192.168.4.1/](docs/assets/hero.png)
+![HackCard — wallet-sized security lab board](docs/assets/hero.png)
 
-*Screenshots are from the embedded **Lab Console** UI. Browse more on [GitHub Pages](https://auratechkick.github.io/HackCard/) or [docs/index.html](docs/index.html).*
+*Multitool for ethical hacking, business, and learning — [ESP32 user guide](https://auratechkick.github.io/HackCard/esp32/) · [RP2350 user guide](https://auratechkick.github.io/HackCard/rp2350/) · [Gallery](https://auratechkick.github.io/HackCard/)*
 
 </div>
 
@@ -62,6 +62,17 @@ Many **desk / NFC→lock / Ducky Script** examples were built on RP2350 first; t
 - **Not —** A turnkey “hack any network” appliance. Promiscuous / deauth / karma-style sketches are **gated**, documented, and meant for **your lab**.
 - **Not —** Phone NFC **card emulation** on ESP32 (PN532 is **reader/writer**).
 - **Not —** RP2350 Wi-Fi or BLE; use the ESP32 tree for radio labs.
+
+---
+
+## Technical features
+
+![HackCard technical features — Wi-Fi/BLE, NFC, RGB, USB-C, microSD, and more](docs/assets/technical-features.png)
+
+| Pin maps | |
+|----------|--|
+| **ESP32-S3** | [MkDocs pin mapping](https://auratechkick.github.io/HackCard/esp32/hardware/pin-mapping/) · [hardware.md](HackCard_ESP32/docs/hardware.md) |
+| **RP2350** | [MkDocs pin mapping](https://auratechkick.github.io/HackCard/rp2350/hardware/pin-mapping/) · [hardware.md](HackCard_RP2350/docs/hardware.md) |
 
 ---
 
