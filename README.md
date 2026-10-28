@@ -8,6 +8,7 @@
 [![ESP32 firmware](https://img.shields.io/badge/ESP32--S3-firmware%201.0.0-6366f1?style=for-the-badge&logo=espressif&logoColor=white)](HackCard_ESP32/)
 [![RP2350 firmware](https://img.shields.io/badge/RP2350-firmware%200.1.0-a78bfa?style=for-the-badge)](HackCard_RP2350/)
 [![Examples](https://img.shields.io/badge/Arduino%20examples-72%20%2B%2040-22d3ee?style=for-the-badge)](HackCard_ESP32/HackCard_ESP32/library/HackCard/EXAMPLES.md)
+[![ESP32 user guide](https://img.shields.io/badge/ESP32%20user%20guide-read%20online-22d3ee?style=for-the-badge)](https://auratechkick.github.io/HackCard/esp32/)
 [![Documentation](https://img.shields.io/badge/Read%20the-docs-0ea5e9?style=for-the-badge)](HackCard_ESP32/docs/README.md)
 [![Web gallery](https://img.shields.io/badge/Web%20gallery-GitHub%20Pages-6366f1?style=for-the-badge)](https://auratechkick.github.io/HackCard/)
 

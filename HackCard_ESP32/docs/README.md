@@ -6,7 +6,7 @@ Welcome. Pick a path below — from first power-on to firmware and API developme
 
 | You are… | Start here | Time |
 |----------|------------|------|
-| **New owner — first power-on** | [Getting started](getting-started.md) | ~15 min |
+| **New owner — first power-on** | [ESP32 user guide (web)](https://auratechkick.github.io/HackCard/esp32/) or [getting-started.md](getting-started.md) | ~15 min |
 | **Using the web dashboard only** | [Lab Console user guide](lab-console-user-guide.md) | ~20 min read |
 | **Flashing / updating firmware** | [Arduino setup](../HackCard_ESP32/docs/ARDUINO_SETUP.md) | ~30 min first time |
 | **Writing your own sketches** | [Custom development](../HackCard_ESP32/docs/CUSTOM_DEVELOPMENT.md) + [Examples index](../HackCard_ESP32/library/HackCard/EXAMPLES.md) | Ongoing |
