@@ -39,13 +39,13 @@ Credit-card sized **RP2350** lab board — NFC, USB HID, RGB, buzzer, and a **US
 <div class="image-grid" markdown="1">
 
 <figure class="hardware-image" markdown="1">
-![HackCard front](assets/hardware/hackcard-front-render.png)
-<figcaption>Front — RGB strip, user button</figcaption>
+![HackCard RP2350 — component side](assets/hardware/hackcard-rp2350-front-pcb.png)
+<figcaption>Component side — USB-C, BOOT / user button, RP2350, microSD, buzzer, NFC antenna</figcaption>
 </figure>
 
 <figure class="hardware-image" markdown="1">
-![HackCard back](assets/hardware/hackcard-back-pcb.png)
-<figcaption>Back — NFC coil, RP2350, USB-C, microSD</figcaption>
+![HackCard RP2350 — LED ring side](assets/hardware/hackcard-rp2350-back-ring.png)
+<figcaption>LED side — 12× WS2812 ring (RGB feedback)</figcaption>
 </figure>
 
 </div>

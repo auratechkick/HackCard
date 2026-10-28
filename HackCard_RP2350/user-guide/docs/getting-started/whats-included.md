@@ -18,6 +18,20 @@ HackCard RP2350 — on-board hardware (from `config/board_config.h`).
 | **User button** | Short / long / double gestures in firmware |
 | **BOOT / RUN** | Hardware only — not GPIO-tested in firmware |
 
+<div class="image-grid" markdown="1">
+
+<figure class="hardware-image" markdown="1">
+![HackCard RP2350 component side](../assets/hardware/hackcard-rp2350-front-pcb.png)
+<figcaption>Component side — USB-C, BOOT, user button, RP2350, SD slot, PCB NFC antenna</figcaption>
+</figure>
+
+<figure class="hardware-image" markdown="1">
+![HackCard RP2350 LED side](../assets/hardware/hackcard-rp2350-back-ring.png)
+<figcaption>LED side — WS2812 ring for status and demos</figcaption>
+</figure>
+
+</div>
+
 ---
 
 ## What you supply
