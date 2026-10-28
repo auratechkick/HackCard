@@ -19,7 +19,7 @@ This MCU has **no Wi-Fi and no BLE**. There is no Lab Console web UI — you use
 
 | Audience | Start here |
 |----------|------------|
-| **First flash** | [docs/getting-started.md](docs/getting-started.md) |
+| **First flash** | [RP2350 user guide (MkDocs)](https://auratechkick.github.io/HackCard/rp2350/) · [docs/getting-started.md](docs/getting-started.md) |
 | **Pin map & limits** | [docs/hardware.md](docs/hardware.md) |
 | **How firmware is organized** | [docs/architecture.md](docs/architecture.md) |
 | **Write your own sketch** | [library/HackCard_RP2350/EXAMPLES.md](library/HackCard_RP2350/EXAMPLES.md) |

@@ -1,31 +1,33 @@
 # Repository documentation assets
 
-Files here support the [root README](../README.md) on **GitHub Pages** (`main` branch ? **`/docs`** folder).
+GitHub Pages serves this **`/docs`** folder from **`main`**.
 
 | Site | URL |
 |------|-----|
 | Gallery landing | https://auratechkick.github.io/HackCard/ |
 | **ESP32 user guide (MkDocs)** | https://auratechkick.github.io/HackCard/esp32/ |
+| **RP2350 user guide (MkDocs)** | https://auratechkick.github.io/HackCard/rp2350/ |
 
-## Screenshots (`assets/`)
+## MkDocs sources
 
-| File | Source |
-|------|--------|
-| `hero.png` | Lab Console dashboard (`github-preview/dashboard.html`) |
-| `gallery-*.png` | Lab Console UI captures |
-
-Regenerate: serve `HackCard_ESP32/hackcard-web-ui/www/` locally, open `github-preview/*.html` at **1280px**, save PNGs to `docs/assets/`.
-
-## ESP32 guide (`esp32/`)
-
-Built from **`HackCard_ESP32/user-guide/`** (MkDocs Material):
+| Board | Source | Build output |
+|-------|--------|--------------|
+| ESP32 | `HackCard_ESP32/user-guide/` | `docs/esp32/` |
+| RP2350 | `HackCard_RP2350/user-guide/` | `docs/rp2350/` |
 
 ```powershell
 cd HackCard_ESP32\user-guide
 pip install -r requirements-docs.txt
 mkdocs build -d ../../docs/esp32
+
+cd ..\..\HackCard_RP2350\user-guide
+mkdocs build -d ../../docs/rp2350
 ```
 
-Pushes that only change `user-guide/` can rebuild via GitHub Actions (`.github/workflows/build-esp32-docs.yml`).
+CI: `.github/workflows/build-user-guides.yml` rebuilds both on push to either `user-guide/` tree.
 
-Product markdown in-repo: **[HackCard_ESP32/docs](../HackCard_ESP32/docs/README.md)** · **[HackCard_RP2350/docs](../HackCard_RP2350/docs/README.md)**.
+## Screenshots (`assets/`)
+
+Gallery PNGs for the root README — regenerate from `HackCard_ESP32/hackcard-web-ui/www/github-preview/`.
+
+In-repo markdown: **[HackCard_ESP32/docs](../HackCard_ESP32/docs/README.md)** · **[HackCard_RP2350/docs](../HackCard_RP2350/docs/README.md)**.

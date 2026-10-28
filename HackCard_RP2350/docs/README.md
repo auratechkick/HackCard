@@ -6,7 +6,7 @@ Pick a path below — from first upload to custom sketches and factory test.
 
 | You are… | Start here | Time |
 |----------|------------|------|
-| **New owner — first upload** | [getting-started.md](getting-started.md) | ~20 min |
+| **New owner — first upload** | [RP2350 user guide (MkDocs)](https://auratechkick.github.io/HackCard/rp2350/) or [getting-started.md](getting-started.md) | ~20 min |
 | **Checking pins & what is missing vs ESP32** | [hardware.md](hardware.md) | ~10 min read |
 | **Understanding serial lab vs web UI** | [architecture.md](architecture.md) | ~15 min read |
 | **Writing standalone examples** | [EXAMPLES.md](../library/HackCard_RP2350/EXAMPLES.md) + [CUSTOM_DEVELOPMENT.md](CUSTOM_DEVELOPMENT.md) | Ongoing |

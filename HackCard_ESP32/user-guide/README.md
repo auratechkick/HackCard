@@ -2,7 +2,9 @@
 
 **Published:** [https://auratechkick.github.io/HackCard/esp32/](https://auratechkick.github.io/HackCard/esp32/)
 
-Source lives here; static HTML is built into repo **`docs/esp32/`** for GitHub Pages (monorepo `/docs` folder).
+Source lives here; static HTML is built into repo **`docs/esp32/`** for GitHub Pages.
+
+**RP2350 guide:** [HackCard_RP2350/user-guide](https://github.com/auratechkick/HackCard/tree/main/HackCard_RP2350/user-guide) → https://auratechkick.github.io/HackCard/rp2350/
 
 ## Preview locally
 

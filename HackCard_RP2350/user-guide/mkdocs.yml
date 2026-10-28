@@ -1,0 +1,89 @@
+# HackCard RP2350 user guide — https://auratechkick.github.io/HackCard/rp2350/
+
+site_name: HackCard RP2350 Guide
+site_description: Getting started and serial lab guide for HackCard RP2350
+site_url: https://auratechkick.github.io/HackCard/rp2350/
+repo_url: https://github.com/auratechkick/HackCard
+repo_name: HackCard
+edit_uri: edit/main/HackCard_RP2350/user-guide/docs/
+
+theme:
+  name: material
+  logo: assets/logo.svg
+  favicon: assets/logo.svg
+  palette:
+    - scheme: slate
+      primary: black
+      accent: deep purple
+      toggle:
+        icon: material/brightness-7
+        name: Switch to light mode
+    - scheme: default
+      primary: black
+      accent: deep purple
+      toggle:
+        icon: material/brightness-4
+        name: Switch to dark mode
+  font:
+    text: Inter
+    code: JetBrains Mono
+  icon:
+    repo: fontawesome/brands/github
+  features:
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - navigation.footer
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - toc.follow
+
+plugins:
+  - search:
+      separator: '[\s\-]+'
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - attr_list
+  - md_in_html
+  - tables
+  - def_list
+  - toc:
+      permalink: true
+      toc_depth: 3
+
+extra_css:
+  - stylesheets/extra.css
+
+nav:
+  - Home: index.md
+  - Getting Started:
+      - Introduction: getting-started/introduction.md
+      - What's on the board: getting-started/whats-included.md
+      - Install tools & connect USB: getting-started/first-setup.md
+      - Personalize settings: getting-started/personalize.md
+      - Flash firmware: getting-started/first-program.md
+      - Serial lab console: getting-started/serial-lab.md
+      - Default PINs & serial: getting-started/default-credentials.md
+      - Arduino examples: getting-started/arduino-examples.md
+      - Write your own sketch: getting-started/write-your-own-sketch.md
+      - Next steps: getting-started/next-steps.md
+  - Resources:
+      - Authorized use: resources/authorized-use.md
+
+extra:
+  generator: false
+  firmware_version: "0.1.0"
+  firmware_repo: https://github.com/auratechkick/HackCard/tree/main/HackCard_RP2350
+
+copyright: Copyright &copy; 2026 HackCard contributors

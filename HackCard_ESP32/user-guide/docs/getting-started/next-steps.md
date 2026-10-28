@@ -66,9 +66,11 @@ To clear saved AP password, Lab PIN, profile, and lab files back to **`user_conf
 
 ---
 
-## RP2350 (coming later)
+## HackCard RP2350 (serial lab)
 
-A separate getting-started guide for **HackCard RP2350** (serial lab, no Lab Console) will be added to this documentation site after the ESP32 section is complete.
+No Wi-Fi or Lab Console — USB serial @ **115200** and **40** Arduino examples:
+
+**[RP2350 user guide](https://auratechkick.github.io/HackCard/rp2350/)**
 
 ---
 

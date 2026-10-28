@@ -8,8 +8,9 @@
 [![ESP32 firmware](https://img.shields.io/badge/ESP32--S3-firmware%201.0.0-6366f1?style=for-the-badge&logo=espressif&logoColor=white)](HackCard_ESP32/)
 [![RP2350 firmware](https://img.shields.io/badge/RP2350-firmware%200.1.0-a78bfa?style=for-the-badge)](HackCard_RP2350/)
 [![Examples](https://img.shields.io/badge/Arduino%20examples-72%20%2B%2040-22d3ee?style=for-the-badge)](HackCard_ESP32/HackCard_ESP32/library/HackCard/EXAMPLES.md)
-[![ESP32 user guide](https://img.shields.io/badge/ESP32%20user%20guide-read%20online-22d3ee?style=for-the-badge)](https://auratechkick.github.io/HackCard/esp32/)
-[![Documentation](https://img.shields.io/badge/Read%20the-docs-0ea5e9?style=for-the-badge)](HackCard_ESP32/docs/README.md)
+[![ESP32 user guide](https://img.shields.io/badge/ESP32%20user%20guide-MkDocs-22d3ee?style=for-the-badge&logo=espressif&logoColor=white)](https://auratechkick.github.io/HackCard/esp32/)
+[![RP2350 user guide](https://img.shields.io/badge/RP2350%20user%20guide-MkDocs-a78bfa?style=for-the-badge)](https://auratechkick.github.io/HackCard/rp2350/)
+[![Documentation](https://img.shields.io/badge/Repo%20docs-markdown-0ea5e9?style=for-the-badge)](HackCard_ESP32/docs/README.md)
 [![Web gallery](https://img.shields.io/badge/Web%20gallery-GitHub%20Pages-6366f1?style=for-the-badge)](https://auratechkick.github.io/HackCard/)
 
 <br>
@@ -148,16 +149,18 @@ Details: [RP2350 architecture](HackCard_RP2350/docs/architecture.md).
 ```
 HackCard/
 ├── README.md                 ← you are here
-├── docs/                     ← GitHub Pages gallery + README screenshots
-│   ├── index.html            ← friendly landing (enable Pages → /docs)
-│   └── assets/*.png          ← Lab Console UI captures
-├── HackCard_ESP32/           ← firmware 1.0.0, Lab Console, 73 examples
+├── docs/                     ← GitHub Pages (gallery + MkDocs builds)
+│   ├── index.html            ← landing + links to both guides
+│   ├── esp32/                ← built ESP32 MkDocs user guide
+│   ├── rp2350/               ← built RP2350 MkDocs user guide
+│   └── assets/*.png          ← README / gallery screenshots
+├── HackCard_ESP32/           ← firmware 1.0.2, Lab Console, 73 examples
+│   ├── user-guide/           ← ESP32 MkDocs source → docs/esp32/
 │   ├── HackCard_ESP32/       ← main sketch + src/apps/
-│   ├── hackcard-web-ui/www/  ← UI source (sync into firmware)
-│   └── docs/                 ← user + developer guides
-└── HackCard_RP2350/          ← firmware 0.1.0, 41 examples, QC sketch
+│   └── docs/                 ← in-repo markdown references
+└── HackCard_RP2350/          ← firmware 0.1.0, 40 examples, QC sketch
+    ├── user-guide/           ← RP2350 MkDocs source → docs/rp2350/
     ├── HackCard_RP2350/      ← serial lab firmware
-    ├── library/HackCard_RP2350/
     └── docs/
 ```
 
@@ -167,7 +170,8 @@ HackCard/
 
 | Audience | Link |
 |----------|------|
-| New ESP32 owner | [Getting started](HackCard_ESP32/docs/getting-started.md) |
+| New ESP32 owner | [ESP32 user guide (MkDocs)](https://auratechkick.github.io/HackCard/esp32/) · [getting-started.md](HackCard_ESP32/docs/getting-started.md) |
+| New RP2350 owner | [RP2350 user guide (MkDocs)](https://auratechkick.github.io/HackCard/rp2350/) · [getting-started.md](HackCard_RP2350/docs/getting-started.md) |
 | Lab Console only | [User guide](HackCard_ESP32/docs/lab-console-user-guide.md) |
 | Custom sketches (ESP32) | [Custom development](HackCard_ESP32/HackCard_ESP32/docs/CUSTOM_DEVELOPMENT.md) |
 | Custom sketches (RP2350) | [Custom development](HackCard_RP2350/docs/CUSTOM_DEVELOPMENT.md) |

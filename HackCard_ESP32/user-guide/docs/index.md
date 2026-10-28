@@ -73,3 +73,5 @@ Credit-card sized **ESP32-S3** lab hardware — NFC, Wi-Fi, BLE, USB HID, and a 
 Firmware, library (**73** Arduino examples), and UI source:
 
 **[github.com/auratechkick/HackCard](https://github.com/auratechkick/HackCard)** → folder `HackCard_ESP32/`
+
+**RP2350 serial lab guide:** [auratechkick.github.io/HackCard/rp2350/](https://auratechkick.github.io/HackCard/rp2350/)
